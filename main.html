@@ -1,82 +1,98 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="desktop">
-      <div class="div">
-        <div class="overlap">
-          <img class="image" src="img/image1.png" />
-          <img class="img" src="img/image.png" />
-          <div class="text-wrapper">Неордината</div>
+<html lang="ru">
+    <head>
+        <script>
+            document.addEventListener('dragstart', event => event.preventDefault());
+        </script>
+        <script>
+            document.addEventListener('contextmenu', event => event.preventDefault()); // Запрет на ПКМ
+            document.addEventListener('keydown', event => {
+                if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+                    event.preventDefault(); // Запрет на DevTools
+                }
+            });
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Школа Неордината</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="photo">
+                    <img class="img1" src="img/test.png" alt="">
+                    <img class="img2" src="img/test.png" alt="">
+                </div>
+                <div class="title">Неордината</div>
+                <div class="subtitle">частная<br /><br /><br /><br /><br />школа</div>
+                <p class="textabt">
+                    Место, где знания встречаются со свободой, а обучение <br />становится осознанным выбором. Мы вдохновляем думать,
+                    <br />открывать новое и быть собой. Здесь каждый — больше, <br />чем просто ученик.
+                </p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScKyX5PtXfBnPUC10oWYo-Kab71f9bEKNNBO6icZqEzubPU-A/viewform" class="button" target="_blank">ЗАПИСАТЬСЯ</a>
+            </div>
+            <!--<div class="news">
+                <div class="media">
+                    <img class="media1" src="img/test.png" alt="">
+                    <img class="media2" src="img/test.png" alt="">
+                    <div class="titlenews" id="events">Проектная деятельность</div>
+                    <div class="abtnews">Сегодня прошла постерная сессия по проектам!
+                                        <br />Ребята из 8-10 классов представили промежуточные
+                                        <br />результаты своих проектов друг другу и всем желающим.
+                                        <br />
+                                        <br />Следующий важный этап — проектная конференция
+                                        <br />в конце мая, где ребята расскажут об итогах своей работы.
+                    </div>
+                    <a href="https://vk.com/wall-220227778_173" class="more" target="_blank">Подробнее</a>
+                </div>
+            </div>-->
         </div>
-        <img class="image-2" src="img/image2.png" />
-        <div class="overlap-group">
-          <div class="rectangle"></div>
-          <div class="text-wrapper-2">Учителя</div>
-          <div class="text-wrapper-3">Контакты</div>
-          <img class="image-3" src="img/image3.png" />
-          <div class="text-wrapper-4">О нас</div>
-          <div class="text-wrapper-5">События</div>
-          <div class="text-wrapper-6">Олимп. выезд</div>
-          <div class="convert-text-to-a">
-            <div class="text-wrapper-7">н</div>
-            <div class="text-wrapper-8">е</div>
-            <div class="text-wrapper-9">о</div>
-            <div class="text-wrapper-10">р</div>
-            <div class="text-wrapper-11">д</div>
-            <div class="text-wrapper-12">и</div>
-            <div class="text-wrapper-13">н</div>
-            <div class="text-wrapper-14">а</div>
-            <div class="text-wrapper-15">т</div>
-            <div class="text-wrapper-16">а</div>
-          </div>
-          <div class="text"></div>
-          <p class="p">
-            "Наша школа — это пространство знаний, диалога и самовыражения. Мы верим в образование, которое не просто
-            дает знания, а учит думать, выбирать, осознавать себя и мир вокруг. Здесь каждый ученик — личность, <br />а
-            не часть системы. Мы создаем атмосферу уважения <br />и свободы, где академические достижения идут рука
-            <br />об руку с творчеством, рефлексией и радостью открытия."
-          </p>
+        <!--<div class="second" id="about">
+            <div class="about">
+                <img class="logo" src="img/test.png"  alt=""/>
+                <a href="#about" class="aboutbtn">О нас</a>
+                <a href="#events" class="eventsbtn">События</a>
+                <a href="#teachers" class="teachersbtn">Учителя</a>
+                <a href="#contacts" class="contactsbtn">Контакты</a>
+                <p class="quote">
+                    “Наша школа — это пространство знаний, диалога
+                    <br/>и самовыражения. Мы верим в образование, которое не
+                    <br/>просто дает знания, а учит думать, выбирать, осознавать
+                    <br/>себя и мир вокруг. Здесь каждый ученик — личность,
+                    <br/>а не часть системы. Мы создаем атмосферу уважения
+                    <br/>и свободы, где академические достижения идут рука
+                    <br/>об руку с творчеством, рефлексией и радостью открытия.”
+                </p>
+            </div>
+        </div> -->
+        <div class="third" id="teachers">
+
         </div>
-        <div class="text-wrapper-17">частная<br /><br /><br /><br /><br />школа</div>
-        <div class="text-wrapper-18">made by boris 💅</div>
-        <p class="text-wrapper-19">
-          Место, где знания встречаются со свободой, а обучение становится осознанным выбором. Мы вдохновляем думать,
-          открывать новое и быть собой. Здесь каждый — больше, чем просто ученик.
-        </p>
-        <div class="group"><div class="text-wrapper-20">ЗАПИСАТЬСЯ</div></div>
-        <div class="overlap-group-wrapper">
-          <div class="overlap-group-2">
-            <div class="rectangle-2"></div>
-            <img class="screen-shot" src="img/image5.png" />
-          </div>
-        </div>
-        <div class="screen-shot-wrapper">
-          <img class="screen-shot-2" src="img/image4.png" />
-        </div>
-        <div class="group-2"></div>
-        <div class="text-wrapper-21">Юлия Мироновна</div>
-        <div class="text-wrapper-22">Лада Викторовна</div>
-        <div class="text-wrapper-23">Лиса Викторовна</div>
-        <div class="text-wrapper-24">Контакты</div>
-        <div class="rectangle-3"></div>
-        <div class="text-wrapper-25">Проектная деятельность</div>
-        <p class="element">
-          Телефон: +7 985 875 75 92<br /><br />Почта: neordinata@ya.ru<br /><br />Адрес: Москва, ул. Косыгина 13, п. 3
-        </p>
-        <div class="social">
-          <a href="https://t.me/neordinata_public" target="_blank">
-            <img class="telegram" src="img/telegram_2111646.png" alt="Telegram" />
-          </a>
-          <a href="https://vk.com/neordinata" target="_blank">
-            <img class="vk" src="img/vk_5968835.png" alt="VK" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </body>
+        <!--<div class="fourth" id="contacts">
+            <div class="contacts">
+                <p class="text">Контакты</p>
+                <p class="smth">
+                    Телефон: <a class="number" href="tel:+79858757592">+7 985 875 75 92</a>
+                    <br/>
+                    <br/>Почта: <a class="mail" href="mailto:neordinata@ya.ru">neordinata@ya.ru</a>
+                    <br/>
+                    <br/>Адрес: <a class="adress" href="https://yandex.ru/maps/213/moscow/?ll=37.564412%2C55.703552&mode=poi&poi%5Bpoint%5D=37.564205%2C55.703742&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D113657524855&z=19.34" target="_blank">Москва, ул. Косыгина д. 13, п. 3</a></p>
+                    <a href="https://t.me/neordinata_public" target="_blank">
+                        <img class="telegram" src="img/telegram.png" alt="Telegram"/>
+                    </a>
+                    <a href="https://vk.com/neordinata" target="_blank">
+                        <img class="vk" src="img/vk.png" alt="VK"/>
+                    </a>
+                    <img class="map" src="img/test.png" alt=""/>
+            </div>
+        </div> -->
+    </body>
+    <footer>
+        <!--<div class="footer">
+            <p class="author">
+                made by me.
+            </p>
+        </div> -->
+    </footer>
 </html>

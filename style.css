@@ -8,11 +8,8 @@ html {
 }
 body {
   cursor: url(./img/cursor1.svg), auto;
-  user-select: none; /* Нельзя выделять */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
+
 .main {
   background-color: #f5f3de;
   display: flex;
@@ -20,92 +17,88 @@ body {
   justify-content: center;
   width: 100%;
 }
-
 /*<-- header -->*/
 .main .header {
   background-color: #f5f3de;
   color: #4f649b;
-  width: 100%;
-  height: auto;
+  width: 1920px;
+  height: 6400px;
   position: relative;
-  margin: 0 0;
 }
 .main .photo {
-  position: relative;
-  width: 29.5vw; /* Было 575px */
-  height: 110vh; /* Было 600px */
-  top: 4.5vh; /* Было 80px */
-  left: 1vw; /* Было -1540px */
-  object-fit: cover;
-}
-.main .img1 {
   position: absolute;
-  width: 61.8vw; /* Было 1560px */
-  height: 50vh; /* Было 1530px */
-  top: 0;
-  left: 1.5vw; /* Было 3410px */
+  width: 575px;
+  height: 600px;
+  top: 80px;
+  left: -1540px;
+  object-fit: cover;
 }
 .main .img2 {
   position: absolute;
-  width: 29.7vw; /* Было 3300px */
-  height: 50vh; /* Было 1530px */
+  width: 1560px;
+  height: 1530px;
   top: 0;
-  left: 65.7vw; /* Было 30px */
+  left: 3410px;
+}
+.main .img1 {
+  position: absolute;
+  width: 3300px;
+  height: 1530px;
+  top: 0;
+  left: 30px;
 }
 .header .title {
   position: absolute;
-  left: 1.76vw; /* Было -1549px */
-  width: 97.66vw; /* Было 1875px */
-  height: 15.36vh; /* Было 295px */
-  top: 54vh; /* Было 1570px */
+  left: -1549px;
+  width: 1875px;
+  height: 295px;
+  top: 1570px;
   font-family: "Impact-Regular", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: 400;
-  font-size: 18.027vw; /* Было 952.3px */
-
-  letter-spacing: 0.07vw; /* Было 1.40px */
-  line-height: 0.92vh; /* Было 17.6px */
+  font-size: 952.3px;
+  text-align: center;
+  letter-spacing: 1.40px;
+  line-height: 17.6px;
 }
 .header .subtitle {
   position: absolute;
-  left: -1vw; /* Было 1560px */
-  width: 97.66vw; /* Было 1875px */
-  height: 15.36vh; /* Было 295px */
-  top: 77vh; /* Было 2150px */
+  left: 1560px;
+  width: 1875px;
+  height: 295px;
+  top: 2150px;
   font-family: "Impact-Regular", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: 400;
-  font-size: 5vw; /* Было 250px */
+  font-size: 250px;
   text-align: right;
-  letter-spacing: 0.07vw;
-  line-height: 1.8vh; /* Было 50px */
+  letter-spacing: 1.40px;
+  line-height: 50px;
 }
 .header .textabt {
   position: absolute;
-  left: 2.5vw; /* Было -1510px */
-  width: 90%;
-  height: 15.36vh; /* Было 295px */
-  top: 75vh; /* Было 2100px */
+  left: -1510px;
+  width: 200%;
+  height: 295px;
+  top: 2100px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 1.4vw; /* Было 80px */
-  letter-spacing: 0.07vw;
-  line-height: 4vh; /* Было 90px */
+  font-size: 80px;
+  letter-spacing: 1.40px;
+  line-height: 90px;
 }
 .header .button {
   position: absolute;
-  left: 2.5vw; /* Было -1510px */
-  top: 100vh; /* Было 2700px */
+  left: -1510px;
+  top: 2700px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 1.4vw; /* Было 80px */
+  font-size: 80px;
   text-decoration: none;
-  color: #4f649b;
+  color: #4f649b; /* Цвет текста */
 }
 .header .button:hover {
   cursor: url(./img/cursor2.svg), pointer;
   text-decoration: underline;
 }
-
-
 /*<-- news -->*/
 .media .media1 {
   position: absolute;
@@ -151,10 +144,9 @@ body {
 
 }
 .media .more:hover {
-    cursor: url(./img/cursor2.svg), pointer;
-    text-decoration: underline;
-  }
-
+  cursor: url(./img/cursor2.svg), pointer;
+  text-decoration: underline;
+}
 /*<-- about -->*/
 .second {
   background-color: #4f649b;
@@ -249,9 +241,9 @@ body {
   letter-spacing: 1.40px;
   line-height: 120%;
 }
-
 /*<-- teachers -->*/
-/*как нибудь по позже*/
+
+
 
 /*<-- contacts -->*/
 .fourth {
@@ -306,16 +298,16 @@ body {
 .map {
   position: absolute;
   right: 320px;
-  top: 1200px;
+  top: 1400px;
   width: 2000px;
   height: 1050px;
 }
+
 .telegram, .vk {
   cursor: url(./img/cursor2.svg), pointer;
   height: 150px;
   width: 150px;
 }
-
 /*<-- footer -->*/
 .footer {
   background-color: #f5f3de;

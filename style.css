@@ -123,8 +123,10 @@ body {
   .main .img1 {
     position: static;
     width: 30rem;
+    max-width: calc(100% - 60px); /* чтобы учесть 30px отступы */
     height: auto;
-    max-width: 100%;
+    display: block;
+    margin: 0 auto; /* если хочешь центрировать */
   }
   .main .img2 {
     display: none
@@ -135,13 +137,12 @@ body {
     text-align: center;
     margin-top: -8.78px;
   }
-
   .header .subtitle {
     position: static;
     font-size: 32px;
-    right: -5rem;
-    text-align: center;
-    margin-top: -200px;
+    text-align: right;
+    margin-right: 1390px;
+    margin-top: -230px;
     line-height: 30px;
   }
 
@@ -149,7 +150,7 @@ body {
     position: static;
     font-size: 16px;
     line-height: 24px;
-    text-align: center;
+    text-align: left;
     width: 100%;
     max-width: 90%;
     margin: 1rem auto;
@@ -334,7 +335,7 @@ body {
 .fourth .contacts {
   position: absolute;
   width: 100%;
-  height: 930px;
+  height: 830px;
   background: #F5F5DC;
 }
 .text {
@@ -405,5 +406,5 @@ body {
   color: #4A6B4A;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-size: 15px;
-  top: 3500px;
+  top: 3400px;
 }

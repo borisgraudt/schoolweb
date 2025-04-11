@@ -11,7 +11,7 @@ body {
 }
 
 .main {
-  background-color: #f5f3de;
+  background-color: #F5F5DC;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -19,128 +19,143 @@ body {
 }
 /*<-- header -->*/
 .main .header {
-  background-color: #f5f3de;
-  color: #4f649b;
-  width: 1920px;
-  height: 6400px;
+  background-color: #F5F5DC;
+  color: #4A6B4A;
+  width: auto;
+  height: 1700px;
   position: relative;
 }
 .main .photo {
   position: absolute;
   width: 575px;
   height: 600px;
-  top: 80px;
-  left: -1540px;
-  object-fit: cover;
+  top: 30px;
+  left: 0;
 }
-.main .img2 {
-  position: absolute;
-  width: 1560px;
-  height: 1530px;
-  top: 0;
-  left: 3410px;
+.main .photo img {
+  object-fit: cover;
 }
 .main .img1 {
   position: absolute;
-  width: 3300px;
-  height: 1530px;
+  width: 805px;
+  height: 350px;
   top: 0;
-  left: 30px;
+  left: -610px;
+}
+.main .img2 {
+  position: absolute;
+  width: 385px;
+  height: 350px;
+  top: 0;
+  left: 225px;
 }
 .header .title {
   position: absolute;
-  left: -1549px;
-  width: 1875px;
+  left: -619.5px;
+  width: 100%;
   height: 295px;
-  top: 1570px;
+  top: 371px;
   font-family: "Impact-Regular", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: 400;
-  font-size: 952.3px;
+  font-size: 233px;
   text-align: center;
-  letter-spacing: 1.40px;
+  letter-spacing: 1.60px;
   line-height: 17.6px;
 }
 .header .subtitle {
   position: absolute;
-  left: 1560px;
+  left: -1259px;
   width: 1875px;
   height: 295px;
-  top: 2150px;
+  top: 500px;
   font-family: "Impact-Regular", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: 400;
-  font-size: 250px;
+  font-size:80px;
   text-align: right;
   letter-spacing: 1.40px;
-  line-height: 50px;
+  line-height: 80px;
 }
 .header .textabt {
   position: absolute;
-  left: -1510px;
-  width: 200%;
+  left: -610px;
+  width: 1000px;
   height: 295px;
-  top: 2100px;
+  top: 540px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 80px;
+  font-size: 20px;
   letter-spacing: 1.40px;
-  line-height: 90px;
+  line-height: 30px;
 }
 .header .button {
   position: absolute;
-  left: -1510px;
-  top: 2700px;
+  left: -610px;
+  top: 700px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 80px;
+  font-size: 20px;
   text-decoration: none;
-  color: #4f649b; /* Цвет текста */
+  color: #4A6B4A; /* Цвет текста */
 }
 .header .button:hover {
   cursor: url(./img/cursor2.svg), pointer;
   text-decoration: underline;
 }
 /*<-- news -->*/
+.main .news {
+  position: absolute;
+  width: 575px;
+  height: 600px;
+  top: 30px;
+  left: 60px;
+  right: 60px;
+  object-fit: cover;
+}
 .media .media1 {
   position: absolute;
-  left: 320px;
-  top: 3200px;
-  width: 1500px;
-  height: 1750px;
+  left: 0;
+  top: 800px;
+  width: 350px;
+  height: 450px;
+  object-fit: cover;
 }
 .media .media2 {
   position: absolute;
-  right: 320px;
-  top: 5000px;
-  width: 1500px;
-  height: 1750px;
+  right: -575px;
+  top: 1300px;
+  width: 350px;
+  height: 450px;
+  object-fit: cover;
 }
 .media .titlenews {
   position: absolute;
-  right: 600px;
-  top: 3180px;
+  width: 100%;
+  left: 500px;
+  top: 800px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 150px;
-  color: #4f649b;
+  font-size: 40px;
+  color: #4A6B4A;
 }
 .media .abtnews {
   position: absolute;
-  right: 220px;
-  top: 3800px;
+  left: 500px;
+  top: 900px;
+  width: 100%;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 75px;
-  color: #4f649b;
+  font-size: 20px;
+  color: #4A6B4A;
 }
 .media .more {
   position: absolute;
-  right: 2060px;
-  top: 4410px;
+  left: 500px;
+  top: 1110px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 75px;
+  font-size: 20px;
   text-decoration: none;
-  color: #4f649b;
+  color: #4A6B4A;
 
 }
 .media .more:hover {
@@ -149,7 +164,7 @@ body {
 }
 /*<-- about -->*/
 .second {
-  background-color: #4f649b;
+  background-color: #4A6B4A;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -157,26 +172,26 @@ body {
 }
 .second .logo {
   position: absolute;
-  top: 80px;
-  left: -2010px;
-  width: 450px;
-  height: 450px;
+  top: 20px;
+  left: -430px;
+  width: 120px;
+  height: 105px;
 }
 .second .about {
-  background-color: #4f649b;
+  background-color: #4A6B4A;
   color: #ffffff;
-  width: 900px;
-  height: 3000px;
+  width: 400px;
+  height: 900px;
   position: relative;
 }
 .second .aboutbtn {
   position: absolute;
-  right: 100px;
-  top: 110px;
+  right: -60px;
+  top: 20px;
   width: 200px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 70px;
+  font-size: 15px;
   text-decoration: none;
   color: white;
 }
@@ -186,12 +201,12 @@ body {
 }
 .second .eventsbtn {
   position: absolute;
-  right: 215px;
-  top: 210px;
+  right: -35px;
+  top: 40px;
   width: 200px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 70px;
+  font-size: 15px;
   text-decoration: none;
   color: white;
 }
@@ -201,12 +216,12 @@ body {
 }
 .second .teachersbtn {
   position: absolute;
-  right: 190px;
-  top: 310px;
+  right: -40px;
+  top: 60px;
   width: 200px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 70px;
+  font-size: 15px;
   text-decoration: none;
   color: white;
 }
@@ -216,12 +231,12 @@ body {
 }
 .second .contactsbtn {
   position: absolute;
-  right: 240px;
-  top: 410px;
+  right: -28px;
+  top: 80px;
   width: 200px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
-  font-size: 70px;
+  font-size: 15px;
   text-decoration: none;
   color: white;
 }
@@ -231,13 +246,13 @@ body {
 }
 .second .quote {
   position: absolute;
-  left: -1800px;
+  left: -380px;
   width: 4500px;
   height: 295px;
-  top: 1450px;
+  top: 500px;
   font-family: "Helvetica", Helvetica, sans-serif;
   font-weight: 10;
-  font-size: 150px;
+  font-size: 40px;
   letter-spacing: 1.40px;
   line-height: 120%;
 }
@@ -247,7 +262,7 @@ body {
 
 /*<-- contacts -->*/
 .fourth {
-  background-color: #f5f3de;
+  background-color: #F5F5DC;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -256,29 +271,29 @@ body {
 .fourth .contacts {
   position: absolute;
   width: 100%;
-  height: 2900px;
-  background: #f5f3de;
+  height: 930px;
+  background: #F5F5DC;
 }
 .text {
   position: absolute;
-  left: 300px;
-  top: 800px;
-  font-family: "Helvetica-Bold", Helvetica, sans-serif;
-  font-weight: 600;
-  font-size: 200px;
-  color: #4f649b;
-}
-.smth {
-  position: absolute;
-  left: 300px;
-  top: 1500px;
+  left: 50px;
+  top: 200px;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
   font-weight: 600;
   font-size: 80px;
-  color: #4f649b;
+  color: #4A6B4A;
+}
+.smth {
+  position: absolute;
+  left: 50px;
+  top: 400px;
+  font-family: "Helvetica-Bold", Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 25px;
+  color: #4A6B4A;
 }
 .number, .mail, .adress {
-  color: #4f649b;
+  color: #4A6B4A;
   text-decoration: none;
 }
 .number:hover, .mail:hover, .adress:hover {
@@ -287,30 +302,30 @@ body {
 }
 .telegram {
   position: absolute;
-  top: 2300px;
-  left: 600px;
+  top: 650px;
+  left: 180px;
 }
 .vk {
   position: absolute;
-  top: 2300px;
-  left: 850px;
+  top: 650px;
+  left: 260px;
 }
 .map {
   position: absolute;
-  right: 320px;
-  top: 1400px;
-  width: 2000px;
-  height: 1050px;
+  right: -730px;
+  top: 350px;
+  width: 500px;
+  height: 300px;
 }
 
 .telegram, .vk {
   cursor: url(./img/cursor2.svg), pointer;
-  height: 150px;
-  width: 150px;
+  height: 50px;
+  width: 50px;
 }
 /*<-- footer -->*/
 .footer {
-  background-color: #f5f3de;
+  background-color: #F5F5DC;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -319,13 +334,13 @@ body {
 .footer .footer {
   position: absolute;
   width: 100%;
-  height: 2900px;
+  height: 10px;
 
 }
 .author {
   position: absolute;
-  color: #4f649b;
+  color: #4A6B4A;
   font-family: "Helvetica-Bold", Helvetica, sans-serif;
-  font-size: 50px;
-  top: 12120px;
+  font-size: 15px;
+  top: 3500px;
 }

@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <script>
-            document.addEventListener('dragstart', event => event.preventDefault());
-        </script>
-        <script>
-            document.addEventListener('contextmenu', event => event.preventDefault()); // Запрет на ПКМ
-            document.addEventListener('keydown', event => {
-                if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
-                    event.preventDefault(); // Запрет на DevTools
-                }
-            });
-        </script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Школа Неордината</title>
@@ -21,11 +10,11 @@
         <div class="main">
             <div class="header">
                 <div class="photo">
-                    <img class="img1" src="img/test.png" alt="">
-                    <img class="img2" src="img/test.png" alt="">
+                    <img class="img1" src="img/image1.jpg" alt="">
+                    <img class="img2" src="img/image2.jpg" alt="">
                 </div>
                 <div class="title">Неордината</div>
-                <div class="subtitle">частная<br /><br /><br /><br /><br />школа</div>
+                <div class="subtitle">частная<br />школа</div>
                 <p class="textabt">
                     Место, где знания встречаются со свободой, а обучение <br />становится осознанным выбором. Мы вдохновляем думать,
                     <br />открывать новое и быть собой. Здесь каждый — больше, <br />чем просто ученик.
@@ -34,8 +23,8 @@
             </div>
             <div class="news">
                 <div class="media">
-                    <img class="media1" src="img/test.png" alt="">
-                    <img class="media2" src="img/test.png" alt="">
+                    <img class="media1" src="img/news1.jpg" alt="">
+                    <img class="media2" src="img/news2.jpg" alt="">
                     <div class="titlenews" id="events">Проектная деятельность</div>
                     <div class="abtnews">Сегодня прошла постерная сессия по проектам!
                                         <br />Ребята из 8-10 классов представили промежуточные
@@ -50,7 +39,7 @@
         </div>
         <div class="second" id="about">
             <div class="about">
-                <img class="logo" src="img/test.png"  alt=""/>
+                <img class="logo" src="img/Screen%20Shot%202025-04-11%20at%203.13.38%20PM.png"  alt=""/>
                 <a href="#about" class="aboutbtn">О нас</a>
                 <a href="#events" class="eventsbtn">События</a>
                 <a href="#teachers" class="teachersbtn">Учителя</a>
@@ -84,7 +73,7 @@
                     <a href="https://vk.com/neordinata" target="_blank">
                         <img class="vk" src="img/vk.png" alt="VK"/>
                     </a>
-                    <img class="map" src="img/test.png" alt=""/>
+                    <iframe class="map" src="https://yandex.ru/map-widget/v1/?ll=37.565164%2C55.704210&mode=search&oid=113657524855&ol=biz&z=16.48" width="500" height="300" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
             </div>
         </div>
     </body>

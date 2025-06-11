@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Removed conflicting styles for Tailwind to work correctly */
+
+/* Свечение для футера */
+.glow {
+  text-shadow: 0 0 8px #3B6C4A, 0 0 16px #3B6C4A, 0 0 24px #3B6C4A;
+  transition: text-shadow 0.3s;
+}
+
+.pixelate {
+  filter: blur(1.5px) contrast(200%);
+}

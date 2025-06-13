@@ -5,9 +5,10 @@ import 'swiper/css';
 
 interface TeachersCarouselProps {
   onTeacherHover: (description: string | null) => void;
+  onTeacherClick: (description: string, name: string) => void;
 }
 
-export default function TeachersCarousel({ onTeacherHover }: TeachersCarouselProps) {
+export default function TeachersCarousel({ onTeacherHover, onTeacherClick }: TeachersCarouselProps) {
 
   return (
     <>
@@ -30,6 +31,7 @@ export default function TeachersCarousel({ onTeacherHover }: TeachersCarouselPro
                 className="flex flex-col items-start cursor-pointer w-[250px] mx-auto relative"
                 onMouseEnter={() => onTeacherHover(teacher.description || '')}
                 onMouseLeave={() => onTeacherHover(null)}
+                onClick={() => onTeacherClick(teacher.description || '', teacher.name)}
               >
                 <span className="mb-2 mt-0 text-bauhaus-green text-xl font-semibold text-left w-full pl-1">{teacher.name}</span>
                 <div
@@ -52,3 +54,4 @@ export default function TeachersCarousel({ onTeacherHover }: TeachersCarouselPro
     </>
   );
 } 
+ 

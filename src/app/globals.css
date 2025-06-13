@@ -11,6 +11,15 @@
 
 body {
   @apply bg-bauhaus-light text-gray-900;
+  cursor: url('/images/cursor2.svg') 10 10, auto;
+}
+
+* {
+  cursor: url('/images/cursor2.svg') 10 10, auto;
+}
+
+*:hover {
+  cursor: url('/images/cursor1.svg') 10 10, pointer;
 }
 
 .pixelate {

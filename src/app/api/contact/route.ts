@@ -3,23 +3,25 @@ import { contactSchema } from "@/lib/contactSchema";
 import { google } from 'googleapis';
 import type { sheets_v4 } from 'googleapis';
 
-// Инициализация Google Sheets API
-const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
-const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+// Функция для получения Google Sheets клиента
+function getGoogleSheetsClient() {
+  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
 
-if (!clientEmail || !privateKey) {
-  throw new Error('Missing GOOGLE_CLIENT_EMAIL or GOOGLE_PRIVATE_KEY environment variables.');
+  if (!clientEmail || !privateKey) {
+    throw new Error('Missing GOOGLE_CLIENT_EMAIL or GOOGLE_PRIVATE_KEY environment variables.');
+  }
+
+  const auth = new google.auth.GoogleAuth({
+    credentials: {
+      client_email: clientEmail,
+      private_key: privateKey,
+    },
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  });
+
+  return google.sheets({ version: 'v4', auth });
 }
-
-const auth = new google.auth.GoogleAuth({
-  credentials: {
-    client_email: clientEmail,
-    private_key: privateKey,
-  },
-  scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-});
-
-const sheets = google.sheets({ version: 'v4', auth });
 
 export async function POST(req: NextRequest) {
   try {
@@ -36,6 +38,9 @@ export async function POST(req: NextRequest) {
     const { applicantName, class: classNumber, parentName, email, phone, source } = result.data;
 
     const status = 'на рассмотрении'; // Автоматическое значение для этапа поступления
+
+    // Получаем клиент Google Sheets
+    const sheets = getGoogleSheetsClient();
 
     // Добавление данных в Google Sheets
     const response = await sheets.spreadsheets.values.append({

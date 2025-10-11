@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import teachers from '@/lib/teachers';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/pagination';
 
 interface TeachersCarouselProps {
   onTeacherHover: (description: string | null) => void;
@@ -11,47 +13,55 @@ interface TeachersCarouselProps {
 export default function TeachersCarousel({ onTeacherHover, onTeacherClick }: TeachersCarouselProps) {
 
   return (
-    <>
-      <div className="w-full flex justify-center">
-        <Swiper
-          slidesPerView={3}
-          spaceBetween={25}
-          loop={true}
-          centeredSlides={true}
-          className="py-0"
-          grabCursor={true}
-          breakpoints={{
-            0: { slidesPerView: 1, spaceBetween: 5 },
-            768: { slidesPerView: 3, spaceBetween: 25 },
-          }}
-        >
-          {teachers.map((teacher, idx) => (
-            <SwiperSlide key={teacher.name}>
-              <div
-                className="flex flex-col items-start cursor-pointer w-[250px] mx-auto relative"
-                onMouseEnter={() => onTeacherHover(teacher.description || '')}
-                onMouseLeave={() => onTeacherHover(null)}
-                onClick={() => onTeacherClick(teacher.description || '', teacher.name)}
-              >
-                <span className="mb-2 mt-0 text-bauhaus-green text-xl font-semibold text-left w-full pl-1">{teacher.name}</span>
-                <div
-                  className="w-[250px] h-[250px] shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative"
-                  style={{ overflow: 'hidden' }}
-                >
-                  <Image
-                    src={teacher.image}
-                    alt={teacher.name}
-                    width={250}
-                    height={250}
-                    className="object-cover w-full h-full grayscale"
-                  />
-                </div>
+    <div className="w-full flex justify-center relative">
+      <Swiper
+        modules={[Pagination]}
+        slidesPerView={1}
+        spaceBetween={30}
+        loop={true}
+        centeredSlides={true}
+        pagination={{ clickable: true }}
+        className="w-full max-w-6xl pb-14"
+        grabCursor={true}
+        breakpoints={{
+          0: { 
+            slidesPerView: 1, 
+            spaceBetween: 20 
+          },
+          640: { 
+            slidesPerView: 2, 
+            spaceBetween: 25 
+          },
+          1024: { 
+            slidesPerView: 3, 
+            spaceBetween: 30 
+          },
+        }}
+      >
+        {teachers.map((teacher) => (
+          <SwiperSlide key={teacher.name}>
+            <div
+              className="flex flex-col items-center cursor-pointer w-full max-w-[280px] mx-auto group"
+              onMouseEnter={() => onTeacherHover(teacher.description || '')}
+              onMouseLeave={() => onTeacherHover(null)}
+              onClick={() => onTeacherClick(teacher.description || '', teacher.name)}
+            >
+              <div className="w-full aspect-square relative overflow-hidden mb-5 rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-300">
+                <Image
+                  src={teacher.image}
+                  alt={teacher.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </>
+              <span className="text-bauhaus-green text-lg font-semibold text-center">
+                {teacher.name}
+              </span>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 } 
  

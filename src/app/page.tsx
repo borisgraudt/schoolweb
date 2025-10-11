@@ -1,218 +1,538 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import teachers from '@/lib/teachers';
-import { useState } from 'react';
-import TeachersCarousel from '@/components/TeachersCarousel';
-import Typewriter from '@/components/Typewriter';
-import FadeInTypewriter from '@/components/FadeInTypewriter';
-import MessageTyping from '@/components/MessageTyping';
+
+const teachers = [
+  { 
+    name: 'Мария Алексеевна', 
+    subject: 'Биология', 
+    selfBio: 'Биология — это не только не страшно, но ещё и жутко интересно и полезно. Спонтанно мы занимаемся её изучением и применением в жизни буквально каждый день, а мне хочется сделать её немного более понятной и близкой. Бешеной собаке семь вёрст не крюк: занимаюсь помощью диким животным, играю в ролевые игры живого действия, организую лекции и мастер-классы, работаю параллельно в зоологическом музее родной alma mater.',
+    directorBio: 'Мария Алексеевна - биолог. И поэтому в школе можно подержать на ладошке летучую мышь, ловить сбежавшего ежа...А еще можно раскрыв рот слушать ее уроки. От 5 до 11 класса слушать Марию Алексеевну любят все. И ей есть что рассказать. Ведь она волонтер, помогающий диким животным, сотрудник музея. А еще - веселый, спокойный и легкий на подъем человек.',
+    color: '#10b981', 
+    image: '/images/maria.png' 
+  },
+  { name: 'Анна Петрова', subject: 'Математика', selfBio: 'Преподаю математику уже 10 лет...', directorBio: 'Анна - мастер объяснения...', color: '#ef4444', image: '/images/anna.png' },
+  { name: 'Дарья Иванова', subject: 'Физика', selfBio: 'Физика - это магия...', directorBio: 'Дарья умеет зажечь...', color: '#3b82f6', image: '/images/dasha.png' },
+  { name: 'Ирина Сидорова', subject: 'Химия', selfBio: 'Химия вокруг нас...', directorBio: 'Ирина - настоящий алхимик...', color: '#8b5cf6', image: '/images/irina.png' },
+  { name: 'Татьяна Кузнецова', subject: 'История', selfBio: 'История - это живые истории...', directorBio: 'Татьяна оживляет прошлое...', color: '#f59e0b', image: '/images/tatiana.png' },
+  { name: 'Елена Новикова', subject: 'Английский', selfBio: 'English is fun...', directorBio: 'Елена - носитель культуры...', color: '#06b6d4', image: '/images/elena.png' },
+];
+
+const eventPhotos = [
+  '/images/event1.jpg',
+  '/images/event2.jpg',
+];
 
 export default function Home() {
-  const [pixelate, setPixelate] = useState(false);
-  const [hoveredTeacherDescription, setHoveredTeacherDescription] = useState<string | null>(null);
-  const [clickedTeacherDescription, setClickedTeacherDescription] = useState<string | null>(null);
-  const [clickedTeacherName, setClickedTeacherName] = useState<string | null>(null);
+  const [currentEventPhoto, setCurrentEventPhoto] = useState(0);
+  const [selectedTeacher, setSelectedTeacher] = useState(0);
+  const [showSelfBio, setShowSelfBio] = useState(true);
+  const [loadedTeachers, setLoadedTeachers] = useState(teachers);
+  const [loadedEventData, setLoadedEventData] = useState({ 
+    title: 'Проектная деятельность',
+    description: 'Сегодня прошла постерная сессия по проектам. Ребята из 5–10 классов представили результаты своих проектов друг другу и всем желающим.\n\nСледующий важный этап — проектная конференция в конце мая, где ребята расскажут об итогах своей работы.',
+    photos: eventPhotos
+  });
 
-  const handleTeacherHover = (description: string | null) => {
-    setHoveredTeacherDescription(description);
-  };
-
-  const handleTeacherClick = (description: string, name: string) => {
-    if (clickedTeacherName === name) {
-      setClickedTeacherDescription(null);
-      setClickedTeacherName(null);
-    } else {
-      setClickedTeacherDescription(description);
-      setClickedTeacherName(name);
+  useEffect(() => {
+    // Загрузка данных из localStorage
+    const savedTeachers = localStorage.getItem('teachers');
+    const savedEvents = localStorage.getItem('eventData');
+    
+    if (savedTeachers) {
+      try {
+        setLoadedTeachers(JSON.parse(savedTeachers));
+      } catch (e) {
+        console.error('Error loading teachers:', e);
+      }
     }
-  };
+    
+    if (savedEvents) {
+      try {
+        const parsed = JSON.parse(savedEvents);
+        setLoadedEventData({
+          title: parsed.title,
+          description: parsed.description,
+          photos: parsed.photos
+        });
+      } catch (e) {
+        console.error('Error loading events:', e);
+      }
+    }
+  }, []);
 
-  const displayedDescription = clickedTeacherDescription || hoveredTeacherDescription;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentEventPhoto((prev) => (prev + 1) % loadedEventData.photos.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [loadedEventData.photos.length]);
 
   return (
-    <main className="min-h-screen bg-bauhaus-light font-body overflow-x-hidden">
-      {/* Hero Section */}
-      <section className="relative w-full h-[600px] md:h-[700px] bg-bauhaus-light overflow-hidden flex flex-col items-center justify-center">
-        {/* Текст "неордината" */}
-        <div className="flex items-center justify-center z-30">
-          <div className="w-full px-4 sm:px-8 md:px-16">
-            <motion.h1
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="font-heading text-bauhaus-green text-[clamp(30px,15vw,245px)] sm:text-[clamp(50px,30vw,245px)] md:text-[clamp(60px,40vw,245px)] font-bold leading-none tracking-tightest drop-shadow-2xl text-center w-full"
+    <main className="min-h-screen bg-white" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
+      {/* Grid overlay для Swiss design */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0">
+        <div className="grid grid-cols-12 h-full">
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="border-r border-black" />
+          ))}
+        </div>
+      </div>
+
+      {/* Slide 1 - Hero */}
+      <section className="min-h-screen grid grid-cols-12 gap-0 relative">
+        <div className="col-span-12 lg:col-span-7 flex items-center px-8 lg:px-16 py-20 relative">
+          <div className="relative z-10">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              Неордината
-            </motion.h1>
+              <h1 className="text-7xl sm:text-8xl lg:text-9xl font-bold mb-8 tracking-tight leading-none">
+                НЕОР­<br/>ДИНА­<br/>ТА
+              </h1>
+            </motion.div>
+            
+            <motion.p
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg mb-12 max-w-md leading-relaxed"
+            >
+              Место, где знания встречаются со свободой, а обучение становится осознанным выбором. Мы вдохновляем думать, открывать новое и быть собой. Здесь каждый — больше, чем просто ученик.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <Link
+                href="/contact"
+                className="inline-block bg-[#ef4444] text-white px-12 py-4 text-sm uppercase tracking-widest hover:bg-black transition-colors"
+              >
+                Записаться
+              </Link>
+            </motion.div>
           </div>
         </div>
 
-        {/* Intro Text */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-bauhaus-blue relative z-10 container mx-auto mt-8 sm:mt-12 px-4 sm:px-0"
-        >
-          <p className="text-base sm:text-lg mb-8 sm:mb-12 text-bauhaus-green font-bold font-['Helvetica',_sans-serif] whitespace-pre-line">
-            Место, где знания встречаются со свободой, а обучение<br/>становится осознанным выбором. Мы вдохновляем думать,<br/>открывать новое и быть собой. Здесь каждый — больше,<br/>чем просто ученик.
-          </p>
-          <motion.div>
-            <Link
-              href="/contact"
-              className="text-bauhaus-green text-base sm:text-lg font-semibold hover:underline transition-opacity inline-block"
-            >
-              ЗАПИСАТЬСЯ
-            </Link>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Project Activity Section */}
-      <section className="bg-bauhaus-light py-20 relative overflow-hidden md:min-h-[700px]">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row-reverse items-start justify-between">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="md:w-1/2 md:pl-12 relative z-10"
-          >
-            <h2 className="text-4xl font-bold text-bauhaus-blue mb-6">Проектная деятельность</h2>
-            <p className="text-lg text-gray-700 leading-relaxed mb-4">
-              Сегодня прошла постерная сессия по проектам! Ребята из 5-10 классов предметным проверочным результаты своих проектов друг другу и всем желающим.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Следующей важный этап — проектная конференция в конце мая, где ребята расскажут об итогах слова работы.
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="md:w-1/2 mt-12 md:mt-0 relative h-[400px] lg:h-[600px]"
-          >
-            {/* This is the green block that needs to be positioned like in the mockup */}
-            <div className="bg-bauhaus-green w-[375px] h-[350px] ml-4 md:ml-0 md:w-[400px] md:h-[450px] lg:w-[575px] lg:h-[400px] md:absolute md:top-24 md:left-0 md:translate-x-0 md:translate-y-0"></div>
-          </motion.div>
+        {/* Hero фото вместо красного блока */}
+        <div className="col-span-12 lg:col-span-5 bg-gray-200 hidden lg:block relative overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center text-6xl text-gray-400">
+            📷
+          </div>
+          {/* Placeholder для фото */}
         </div>
       </section>
 
-      {/* Navigation Buttons */}
-      <section className="bg-bauhaus-light py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-            <Link href="/about" className="text-bauhaus-green text-lg font-semibold hover:underline transition-opacity">
-              О нас
-            </Link>
-            <Link href="/events" className="text-bauhaus-green text-lg font-semibold hover:underline transition-opacity">
+      {/* Slide 2 - Events */}
+      <section id="events" className="py-24 px-8 lg:px-16 border-t-4 border-black">
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 lg:col-span-4">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm uppercase tracking-widest mb-4"
+            >
+              Events
+            </motion.h2>
+          </div>
+
+          <div className="col-span-12 lg:col-span-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
+                {loadedEventData.title}
+              </h3>
+              <div className="text-lg leading-relaxed text-gray-700 mb-8 whitespace-pre-line">
+                {loadedEventData.description}
+              </div>
+
+              {/* Carousel для фото события */}
+              <div className="relative h-[400px] bg-gray-200 overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentEventPhoto}
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -100 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute inset-0"
+                  >
+                    {loadedEventData.photos[currentEventPhoto] ? (
+                      <img 
+                        src={loadedEventData.photos[currentEventPhoto]} 
+                        alt={`Event ${currentEventPhoto + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-6xl text-gray-400">
+                        📸
+                      </div>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Навигация carousel */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  {loadedEventData.photos.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentEventPhoto(i)}
+                      className={`w-2 h-2 transition-all ${
+                        currentEventPhoto === i ? 'bg-black w-8' : 'bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 3 - О нас */}
+      <section className="py-24 px-8 lg:px-16 bg-black text-white border-t-4 border-black">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-16 leading-tight"
+          >
+            „Наш центр — это пространство знаний, диалога и самовыражения. Мы верим в образование, которое не просто дает знания, а учит думать, выбирать, осознавать себя и мир вокруг. Здесь каждый ученик — личность, а не часть системы. Мы создаем атмосферу уважения и свободы, где академические достижения идут рука об руку с творчеством, рефлексией и радостью открытия."
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 px-6 sm:px-0"
+          >
+            <a
+              href="#events"
+              className="bg-[#10b981] text-white text-center py-4 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
+            >
               События
-            </Link>
-            <Link href="/teachers" className="text-bauhaus-green text-lg font-semibold hover:underline transition-opacity">
-              Учителя
-            </Link>
-            <Link href="/contact" className="text-bauhaus-green text-lg font-semibold hover:underline transition-opacity">
+            </a>
+            <a
+              href="#faq"
+              className="bg-[#8b5cf6] text-white text-center py-4 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
+            >
+              FAQ
+            </a>
+            <a
+              href="#contacts"
+              className="bg-[#f59e0b] text-white text-center py-4 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
+            >
               Контакты
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section - "Наша школа" */}
-      <section className="relative bg-bauhaus-green text-white py-20 px-4">
-        <div className="container mx-auto relative">
-          <div className="absolute top-[-96px] left-0 w-24 h-24 md:w-32 md:h-32">
-            <Image
-              src="/images/logo.png"
-              alt="Logo"
-              fill
-              className="object-contain"
-            />
-          </div>
-          <div className="w-full flex flex-col items-start">
-            <MessageTyping
-              text={'"Наш центр — это пространство знаний, диалога и\nсамовыражения. Мы верим в образование, которое не\nпросто дает знания, а учит думать, выбирать, осознавать\nсебя и мир вокруг. Здесь каждый ученик — личность,\nа не часть системы. Мы создаем атмосферу уважения\nи свободы, где академические достижения идут рука\nоб руку с творчеством, рефлексией и радостью открытия."'}
-              className="font-normal text-left text-[clamp(1.1rem,4.5vw,42px)] mt-40"
-            />
-            <div className="h-8"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Teachers Section */}
-      <section className="bg-bauhaus-light pt-80 pb-[350px]">
-        <div className="container mx-auto px-4 sm:px-8 md:px-16">
-          {/* Карусель учителей */}
-          <TeachersCarousel onTeacherHover={handleTeacherHover} onTeacherClick={handleTeacherClick} />
-          <div className={`text-lg font-['Helvetica',_sans-serif] max-w-4xl mx-auto overflow-hidden transition-all duration-1000 ${displayedDescription ? 'opacity-100 max-h-[1000px] mt-24' : 'opacity-0 max-h-0 mt-0'}`}>
-            {/* Using dangerouslySetInnerHTML to render bold tags from description */} 
-            <div className="text-left w-full" dangerouslySetInnerHTML={{ __html: displayedDescription || '' }} />
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="bg-bauhaus-light pt-0 px-4">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="md:w-1/2 text-bauhaus-blue"
-          >
-            <h2 className="font-body text-[80px] font-bold mb-32 text-bauhaus-green">Контакты</h2>
-            <div className="font-body text-[30px] font-bold mb-4 text-bauhaus-green">
-              Телефон: <a href="tel:+79858757592" className="hover:underline">+7 985 875-75-92</a>
-            </div>
-            <div className="font-body text-[30px] font-bold mb-4 text-bauhaus-green">
-              Почта: <a href="mailto:neordinata@ya.ru" className="hover:underline">neordinata@ya.ru</a>
-            </div>
-            <div className="font-body text-[30px] font-bold mb-32 text-bauhaus-green">
-              Адрес: <a href="https://yandex.ru/maps/-/CHSL4IkK" target="_blank" rel="noopener noreferrer" className="hover:underline">Москва, ул. Косыгина 13, п. 3</a>
-            </div>
-            <div className="flex space-x-8 justify-center md:justify-start z-40 mb-256">
-              <Link href="https://t.me/neordinata_public" className="text-bauhaus-blue hover:opacity-80 transition-opacity">
-                <Image src="/images/telegram.png" alt="Telegram" width={50} height={50} />
-              </Link>
-              <Link href="https://vk.com/neordinata" className="text-bauhaus-blue hover:opacity-80 transition-opacity">
-                <Image src="/images/vk.png" alt="VK" width={50} height={50} />
-              </Link>
-            </div>
+            </a>
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="md:w-1/2 mt-12 md:mt-0 relative h-[400px] lg:h-[600px]"
-          >
-            <iframe 
-              className="w-[375px] h-[300px] ml-4 md:ml-0 md:w-[400px] md:h-[400px] lg:w-[575px] lg:h-[400px] md:absolute md:top-48 md:right-0 md:left-auto md:translate-x-0 md:translate-y-0 border-2 border-bauhaus-green"
-              src="https://yandex.ru/map-widget/v1/?ll=37.565164%2C55.704210&mode=search&oid=113657524855&ol=biz&z=16.48" 
-              frameBorder="1" 
-              allowFullScreen={true}
-            />
-          </motion.div>
+        </div>
+      </section>
+
+      {/* Slide 4 - Учителя (Интерактивный список) */}
+      <section id="teachers" className="py-24 px-6 sm:px-8 lg:px-16 border-t-4 border-black">
+        <div className="grid grid-cols-12 gap-8 mb-16">
+          <div className="col-span-12 lg:col-span-4">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm uppercase tracking-widest"
+            >
+              Команда
+            </motion.h2>
+          </div>
+          <div className="col-span-12 lg:col-span-8">
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl sm:text-5xl font-bold"
+            >
+              Наши учителя
+            </motion.h3>
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Левая часть - список учителей с прокруткой */}
+          <div className="space-y-2 order-2 lg:order-1 max-h-[600px] overflow-y-auto">
+            {loadedTeachers.map((teacher, i) => (
+              <motion.button
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                onClick={() => setSelectedTeacher(i)}
+                className={`w-full text-left border-t-2 border-black py-4 px-4 transition-colors ${
+                  selectedTeacher === i ? 'bg-black text-white' : 'hover:bg-gray-50'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div 
+                    className="w-4 h-4 flex-shrink-0"
+                    style={{ backgroundColor: selectedTeacher === i ? 'white' : teacher.color }}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-bold text-lg truncate">{teacher.name}</h4>
+                    <div className="text-xs uppercase tracking-widest opacity-60 truncate">
+                      {teacher.subject}
+                    </div>
+                  </div>
+                </div>
+              </motion.button>
+            ))}
+            <div className="border-t-2 border-black" />
+          </div>
+
+          {/* Правая часть - детали учителя */}
+          <div className="order-1 lg:order-2">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedTeacher}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Фото */}
+                <div 
+                  className="aspect-[4/3] mb-6 flex items-center justify-center text-6xl sm:text-8xl text-white mx-6 sm:mx-0 overflow-hidden"
+                  style={{ backgroundColor: loadedTeachers[selectedTeacher].color }}
+                >
+                  {loadedTeachers[selectedTeacher].image ? (
+                    <img 
+                      src={loadedTeachers[selectedTeacher].image} 
+                      alt={loadedTeachers[selectedTeacher].name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span>👤</span>
+                  )}
+                </div>
+
+                {/* Переключатель "О себе" / "Глазами директора" */}
+                <div className="flex gap-2 mb-6 mx-6 sm:mx-0">
+                  <button
+                    onClick={() => setShowSelfBio(true)}
+                    className={`px-4 py-2 text-xs uppercase tracking-widest transition-colors border-2 border-black ${
+                      showSelfBio ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
+                    }`}
+                  >
+                    О себе
+                  </button>
+                  <button
+                    onClick={() => setShowSelfBio(false)}
+                    className={`px-4 py-2 text-xs uppercase tracking-widest transition-colors border-2 border-black ${
+                      !showSelfBio ? 'bg-black text-white' : 'hover:bg-black hover:text-white'
+                    }`}
+                  >
+                    Глазами директора
+                  </button>
+                </div>
+
+                {/* Текст */}
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={showSelfBio ? 'self' : 'director'}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-base sm:text-lg leading-relaxed text-gray-700 mx-6 sm:mx-0"
+                  >
+                    {showSelfBio ? loadedTeachers[selectedTeacher].selfBio : loadedTeachers[selectedTeacher].directorBio}
+                  </motion.p>
+                </AnimatePresence>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 5 - FAQ */}
+      <section id="faq" className="py-24 px-6 sm:px-8 lg:px-16 border-t-4 border-black">
+        <div className="grid grid-cols-12 gap-8 mb-16">
+          <div className="col-span-12 lg:col-span-4">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm uppercase tracking-widest"
+            >
+              FAQ
+            </motion.h2>
+          </div>
+          <div className="col-span-12 lg:col-span-8">
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl sm:text-5xl font-bold"
+            >
+              Частые вопросы
+            </motion.h3>
+          </div>
+        </div>
+
+        <div className="max-w-4xl mx-auto space-y-4">
+          {[
+            {
+              question: 'Как записаться в школу?',
+              answer: 'Свяжитесь с нами по телефону +7 985 875-75-92 или email neordinata@ya.ru, и мы расскажем о всех этапах поступления.'
+            },
+            {
+              question: 'Какие классы есть в школе?',
+              answer: 'В нашей школе обучаются ученики с 5 по 11 класс. Мы предлагаем индивидуальный подход к каждому ребенку.'
+            },
+            {
+              question: 'Проводятся ли дополнительные занятия?',
+              answer: 'Да, мы организуем проектную деятельность, мастер-классы, лекции и другие образовательные мероприятия.'
+            },
+            {
+              question: 'Где находится школа?',
+              answer: 'Мы находимся в Москве по адресу: ул. Косыгина 13, п. 3. Удобная транспортная доступность.'
+            }
+          ].map((faq, i) => (
+            <motion.details
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="border-2 border-black p-6 group"
+            >
+              <summary className="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+                {faq.question}
+                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="mt-4 text-gray-700 leading-relaxed">
+                {faq.answer}
+              </p>
+            </motion.details>
+          ))}
+        </div>
+      </section>
+
+      {/* Slide 6 - Контакты */}
+      <section id="contacts" className="py-24 px-6 sm:px-8 lg:px-16 border-t-4 border-black bg-[#3b82f6] text-white">
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 lg:col-span-4">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm uppercase tracking-widest mb-8"
+            >
+              Контакты
+            </motion.h2>
+          </div>
+
+          <div className="col-span-12 lg:col-span-8">
+            <div className="grid sm:grid-cols-2 gap-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="text-sm uppercase tracking-widest mb-4 opacity-80">Телефон</div>
+                <a href="tel:+79858757592" className="text-2xl font-bold hover:opacity-80 transition-opacity break-words">
+                  +7 985 875-75-92
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                <div className="text-sm uppercase tracking-widest mb-4 opacity-80">Email</div>
+                <a href="mailto:neordinata@ya.ru" className="text-2xl font-bold hover:opacity-80 transition-opacity break-words">
+                  neordinata@ya.ru
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="text-sm uppercase tracking-widest mb-4 opacity-80">Адрес</div>
+                <a href="https://yandex.ru/maps/-/CHSL4IkK" target="_blank" className="text-2xl font-bold hover:opacity-80 transition-opacity break-words">
+                  Москва,<br/>ул. Косыгина 13, п. 3
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="space-y-4"
+              >
+                <div className="text-sm uppercase tracking-widest mb-4 opacity-80">Соцсети</div>
+                <Link href="https://t.me/neordinata_public" target="_blank" className="block border-2 border-white text-white text-center py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-[#3b82f6] transition-colors">
+                  Telegram
+                </Link>
+                <Link href="https://vk.com/neordinata" target="_blank" className="block border-2 border-white text-white text-center py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-[#3b82f6] transition-colors">
+                  VK
+                </Link>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-bauhaus-light text-black py-8 px-4 text-center text-sm relative w-full font-bold font-sans">
-        <div className="container mx-auto text-center">
-          <a
-            href="https://github.com/borisgraudt"
-            target="_blank"
-            rel="noopener noreferrer"
-            onMouseEnter={() => setPixelate(true)}
-            onMouseLeave={() => setPixelate(false)}
-            style={pixelate ? { filter: 'blur(1.5px) contrast(200%)' } : {}}
-            className="transition-all duration-300 mt-8 inline-block"
+      <footer className="border-t-4 border-black py-6 px-8 lg:px-16 bg-black text-white">
+        <div className="text-center">
+          <a 
+            href="https://github.com/borisgraudt" 
+            target="_blank" 
+            className="inline-block font-bold text-xs tracking-widest hover:blur-sm transition-all duration-300"
           >
             made by boris
           </a>
         </div>
       </footer>
+
+      <style jsx global>{`
+        /* Smooth scroll */
+        html {
+          scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: #f0f0f0;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: #333;
+        }
+      `}</style>
     </main>
   );
 }

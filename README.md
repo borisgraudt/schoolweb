@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Неордината - Современная Школа
 
-## Getting Started
+Современный, полностью адаптивный веб-сайт для образовательного центра "Неордината", построенный на Next.js 14 с использованием TypeScript и Tailwind CSS.
 
-First, run the development server:
+## 🎨 Особенности
 
+- ✨ **Полностью адаптивный дизайн** - отлично выглядит на всех устройствах
+- 🎭 **Плавные анимации** - использование Framer Motion для красивых переходов
+- 📱 **Мобильное меню** - удобная навигация на смартфонах
+- 🎪 **Карусель учителей** - интерактивное представление преподавателей
+- 📝 **Форма записи** - валидация с помощью React Hook Form и Zod
+- 🎯 **Фильтрация проектов** - удобная категоризация работ
+- 🚀 **Оптимизация производительности** - быстрая загрузка и отзывчивость
+
+## 🛠️ Технологический стек
+
+- **Framework**: Next.js 14 (App Router)
+- **Язык**: TypeScript
+- **Стилизация**: Tailwind CSS
+- **Анимации**: Framer Motion
+- **Формы**: React Hook Form + Zod
+- **Карусель**: Swiper
+- **Компоненты**: Radix UI
+
+## 🚀 Быстрый старт
+
+### Требования
+
+- Node.js 18+ 
+- npm, yarn, pnpm или bun
+
+### Установка
+
+1. Клонируйте репозиторий:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/borisgraudt/schoolweb.git
+cd schoolweb
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Установите зависимости:
+```bash
+npm install
+# или
+yarn install
+# или
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Запустите сервер разработки:
+```bash
+npm run dev
+# или
+yarn dev
+# или
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Откройте [http://localhost:3000](http://localhost:3000) в браузере
 
-## Learn More
+## 📁 Структура проекта
 
-To learn more about Next.js, take a look at the following resources:
+```
+schoolweb/
+├── src/
+│   ├── app/              # Страницы приложения (App Router)
+│   │   ├── contact/      # Страница контактов
+│   │   ├── projects/     # Страница проектов
+│   │   └── api/          # API маршруты
+│   ├── components/       # React компоненты
+│   ├── lib/              # Утилиты и данные
+│   └── types/            # TypeScript типы
+├── public/               # Статические файлы
+│   └── images/           # Изображения
+└── ...
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 Основные страницы
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Главная (/)** - презентация школы, учителя, контакты
+- **Проекты (/projects)** - портфолио проектов с фильтрацией
+- **Записаться (/contact)** - форма для записи в школу
 
-## Deploy on Vercel
+## 🎨 Цветовая палитра
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Зеленый** (`rgb(81, 106, 77)`) - основной цвет
+- **Синий** (`#3498db`) - акцентный цвет
+- **Красный** (`#e74c3c`) - выделения
+- **Светлый** (`#f5f5f5`) - фон
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📱 Адаптивность
+
+Сайт полностью адаптирован для следующих разрешений:
+- 📱 Mobile: 320px - 639px
+- 📱 Tablet: 640px - 1023px
+- 💻 Desktop: 1024px+
+
+## 🔧 Скрипты
+
+```bash
+npm run dev      # Запуск dev сервера
+npm run build    # Сборка для продакшена
+npm run start    # Запуск продакшен сервера
+npm run lint     # Проверка кода
+```
+
+## 🌐 Деплой
+
+Сайт развернут на [Vercel](https://vercel.com): [schoolweb-hazel.vercel.app](https://schoolweb-hazel.vercel.app)
+
+Для деплоя на Vercel:
+1. Подключите GitHub репозиторий к Vercel
+2. Vercel автоматически определит настройки Next.js
+3. Деплой произойдет автоматически при push в main
+
+## 👨‍💻 Автор
+
+Made by [Boris](https://github.com/borisgraudt)
+
+## 📄 Лицензия
+
+© 2025 Неордината. Все права защищены.

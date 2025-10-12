@@ -23,6 +23,7 @@ export default function AdminPage() {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState<'teachers' | 'events'>('teachers');
+  const [isSaving, setIsSaving] = useState(false);
 
   // Teachers state
   const [teachers, setTeachers] = useState<Teacher[]>([
@@ -44,35 +45,90 @@ export default function AdminPage() {
     photos: ['/images/event1.jpg', '/images/event2.jpg']
   });
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'neordinata2025') {
-      setIsAuthenticated(true);
-      localStorage.setItem('adminAuth', 'true');
-    } else {
-      alert('Неверный пароль!');
+    if (!password) {
+      alert('Введите пароль администратора');
+      return;
     }
+    setIsAuthenticated(true);
+    localStorage.setItem('adminAuth', 'true');
+    localStorage.setItem('adminToken', password);
+    await loadFromAPI();
   };
 
-  useEffect(() => {
-    if (localStorage.getItem('adminAuth') === 'true') {
-      setIsAuthenticated(true);
+const loadFromAPI = async () => {
+  try {
+    const res = await fetch('/api/content', { cache: 'no-store' });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (Array.isArray(data.teachers) && data.teachers.length > 0) {
+      const mapped = data.teachers.map((t: any, idx: number) => ({
+        id: String(idx + 1),
+        name: t.name ?? '',
+        subject: t.subject ?? '',
+        selfBio: t.selfBio ?? '',
+        directorBio: t.directorBio ?? '',
+        color: t.color ?? '#3b82f6',
+        image: t.image ?? '/images/default.png',
+      }));
+      setTeachers(mapped);
     }
-    // Загрузка сохраненных данных
-    const savedTeachers = localStorage.getItem('teachers');
-    const savedEvents = localStorage.getItem('eventData');
-    if (savedTeachers) setTeachers(JSON.parse(savedTeachers));
-    if (savedEvents) setEventData(JSON.parse(savedEvents));
-  }, []);
+    if (data.eventData) {
+      setEventData({
+        title: data.eventData.title ?? '',
+        description: data.eventData.description ?? '',
+        photos: Array.isArray(data.eventData.photos) ? data.eventData.photos : [],
+      });
+    }
+  } catch {}
+};
 
-  const handleSaveTeachers = () => {
-    localStorage.setItem('teachers', JSON.stringify(teachers));
-    alert('✅ Учителя сохранены!');
+useEffect(() => {
+  if (typeof window === 'undefined') return;
+  if (localStorage.getItem('adminAuth') === 'true') {
+    setIsAuthenticated(true);
+    const savedToken = localStorage.getItem('adminToken') || '';
+    if (savedToken) setPassword(savedToken);
+    loadFromAPI();
+  }
+}, []);
+
+  const handleSaveTeachers = async () => {
+    await saveAll();
   };
 
-  const handleSaveEvents = () => {
-    localStorage.setItem('eventData', JSON.stringify(eventData));
-    alert('✅ События сохранены!');
+  const handleSaveEvents = async () => {
+    await saveAll();
+  };
+
+  const saveAll = async () => {
+    try {
+      setIsSaving(true);
+      const adminToken = localStorage.getItem('adminToken') || password;
+      const payload = {
+        teachers: teachers.map(({ id, ...rest }) => rest),
+        eventData,
+      };
+      const res = await fetch('/api/content', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-token': adminToken || '',
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const msg = res.status === 401 ? 'Нет доступа: неверный пароль администратора (ADMIN_TOKEN)' : 'Ошибка сохранения контента';
+        alert(`✗ ${msg}`);
+        return;
+      }
+      alert('✅ Контент сохранён и опубликован!');
+    } catch (e) {
+      alert('✗ Ошибка сети при сохранении');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const addTeacher = () => {
@@ -311,9 +367,10 @@ export default function AdminPage() {
 
             <button
               onClick={handleSaveTeachers}
-              className="mt-8 w-full bg-black text-white px-6 py-4 font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors"
+              className="mt-8 w-full bg-black text-white px-6 py-4 font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors disabled:opacity-60"
+              disabled={isSaving}
             >
-              💾 Сохранить всех учителей
+              {isSaving ? 'Сохранение…' : '💾 Сохранить всех учителей'}
             </button>
           </div>
         )}
@@ -377,9 +434,10 @@ export default function AdminPage() {
 
             <button
               onClick={handleSaveEvents}
-              className="mt-8 w-full bg-black text-white px-6 py-4 font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors"
+              className="mt-8 w-full bg-black text-white px-6 py-4 font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors disabled:opacity-60"
+              disabled={isSaving}
             >
-              💾 Сохранить события
+              {isSaving ? 'Сохранение…' : '💾 Сохранить события'}
             </button>
           </div>
         )}

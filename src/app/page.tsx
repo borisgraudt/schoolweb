@@ -42,31 +42,28 @@ export default function Home() {
   useEffect(() => {
     // Устанавливаем флаг монтирования
     setMounted(true);
-    
-    // Загрузка данных из localStorage
-    const savedTeachers = localStorage.getItem('teachers');
-    const savedEvents = localStorage.getItem('eventData');
-    
-    if (savedTeachers) {
+    // Загружаем данные из общего API, если настроен KV
+    const load = async () => {
       try {
-        setLoadedTeachers(JSON.parse(savedTeachers));
+        const res = await fetch('/api/content', { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (Array.isArray(data.teachers) && data.teachers.length > 0) {
+          setLoadedTeachers(data.teachers);
+        }
+        if (data.eventData && (data.eventData.title || (data.eventData.photos ?? []).length)) {
+          setLoadedEventData({
+            title: data.eventData.title ?? loadedEventData.title,
+            description: data.eventData.description ?? loadedEventData.description,
+            photos: Array.isArray(data.eventData.photos) && data.eventData.photos.length > 0 ? data.eventData.photos : loadedEventData.photos,
+          });
+        }
       } catch (e) {
-        console.error('Error loading teachers:', e);
+        // тихо, оставим дефолтные данные
       }
-    }
-    
-    if (savedEvents) {
-      try {
-        const parsed = JSON.parse(savedEvents);
-        setLoadedEventData({
-          title: parsed.title,
-          description: parsed.description,
-          photos: parsed.photos
-        });
-      } catch (e) {
-        console.error('Error loading events:', e);
-      }
-    }
+    };
+    load();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

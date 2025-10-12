@@ -51,10 +51,24 @@ export default function AdminPage() {
       alert('Введите пароль администратора');
       return;
     }
-    setIsAuthenticated(true);
-    localStorage.setItem('adminAuth', 'true');
-    localStorage.setItem('adminToken', password);
-    await loadFromAPI();
+    // серверная проверка токена
+    try {
+      const res = await fetch('/api/admin/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: password })
+      });
+      if (!res.ok) {
+        alert('Неверный пароль администратора');
+        return;
+      }
+      setIsAuthenticated(true);
+      localStorage.setItem('adminAuth', 'true');
+      localStorage.setItem('adminToken', password);
+      await loadFromAPI();
+    } catch (e) {
+      alert('Ошибка проверки. Попробуйте позже.');
+    }
   };
 
 const loadFromAPI = async () => {
@@ -86,12 +100,29 @@ const loadFromAPI = async () => {
 
 useEffect(() => {
   if (typeof window === 'undefined') return;
-  if (localStorage.getItem('adminAuth') === 'true') {
-    setIsAuthenticated(true);
-    const savedToken = localStorage.getItem('adminToken') || '';
-    if (savedToken) setPassword(savedToken);
-    loadFromAPI();
-  }
+    (async () => {
+      if (localStorage.getItem('adminAuth') === 'true') {
+        const savedToken = localStorage.getItem('adminToken') || '';
+        if (savedToken) {
+          try {
+            const res = await fetch('/api/admin/verify', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token: savedToken })
+            });
+            if (res.ok) {
+              setIsAuthenticated(true);
+              setPassword(savedToken);
+              await loadFromAPI();
+              return;
+            } else {
+              localStorage.removeItem('adminAuth');
+              localStorage.removeItem('adminToken');
+            }
+          } catch {}
+        }
+      }
+    })();
 }, []);
 
   const handleSaveTeachers = async () => {

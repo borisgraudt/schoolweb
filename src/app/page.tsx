@@ -28,7 +28,7 @@ const eventPhotos = [
 ];
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentEventPhoto, setCurrentEventPhoto] = useState(0);
   const [selectedTeacher, setSelectedTeacher] = useState(0);
   const [showSelfBio, setShowSelfBio] = useState(true);
@@ -40,13 +40,14 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Устанавливаем флаг монтирования
-    setMounted(true);
-    // Загружаем данные из общего API, если настроен KV
+    // Загружаем данные из общего API
     const load = async () => {
       try {
         const res = await fetch('/api/content', { cache: 'no-store' });
-        if (!res.ok) return;
+        if (!res.ok) {
+          setIsLoading(false);
+          return;
+        }
         const data = await res.json();
         if (Array.isArray(data.teachers) && data.teachers.length > 0) {
           setLoadedTeachers(data.teachers);
@@ -60,6 +61,8 @@ export default function Home() {
         }
       } catch (e) {
         // тихо, оставим дефолтные данные
+      } finally {
+        setIsLoading(false);
       }
     };
     load();
@@ -72,6 +75,17 @@ export default function Home() {
     }, 4000);
     return () => clearInterval(interval);
   }, [loadedEventData.photos.length]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-sm uppercase tracking-widest">Загрузка...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-white overflow-x-hidden" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>

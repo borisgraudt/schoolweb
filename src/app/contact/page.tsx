@@ -316,7 +316,7 @@ export default function ContactPage() {
       <footer className="border-t-4 border-black py-6 px-8 lg:px-16 bg-black text-white">
         <div className="text-center space-y-2">
           <a 
-            href="https://aethr.ru" 
+            href="https://github.com/borisgraudt" 
             target="_blank" 
             className="inline-block font-bold text-xs tracking-widest hover:blur-sm transition-all duration-300"
           >

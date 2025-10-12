@@ -47,8 +47,9 @@ export async function GET() {
       eventData: { title: "", description: "", photos: [] },
     };
     return NextResponse.json(empty, { status: 200 });
-  } catch (e) {
-    return NextResponse.json({ error: "Failed to load content" }, { status: 500 });
+  } catch (e: any) {
+    console.error('[GET /api/content] Error:', e?.message || e);
+    return NextResponse.json({ error: "Failed to load content", details: e?.message }, { status: 500 });
   }
 }
 
@@ -82,8 +83,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Failed to write blob" }, { status: 500 });
     }
     return NextResponse.json({ ok: true, url: res.url }, { status: 200 });
-  } catch (e) {
-    return NextResponse.json({ error: "Failed to save content" }, { status: 500 });
+  } catch (e: any) {
+    console.error('[POST /api/content] Error:', e?.message || e);
+    return NextResponse.json({ error: "Failed to save content", details: e?.message }, { status: 500 });
   }
 }
 

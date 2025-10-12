@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import FAQItem from '@/components/FAQItem';
 
 const teachers = [
   { 
@@ -144,7 +145,7 @@ export default function Home() {
           </div>
 
           <div className="col-span-12 lg:col-span-8">
-            <motion.div
+        <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -178,7 +179,7 @@ export default function Home() {
                         📸
                       </div>
                     )}
-                  </motion.div>
+          </motion.div>
                 </AnimatePresence>
 
                 {/* Навигация carousel */}
@@ -194,7 +195,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+        </motion.div>
           </div>
         </div>
       </section>
@@ -206,9 +207,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-16 leading-tight"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-16"
+            style={{ lineHeight: '1.6' }}
           >
-            „Наш центр — это пространство знаний, диалога и самовыражения. Мы верим в образование, которое не просто дает знания, а учит думать, выбирать, осознавать себя и мир вокруг. Здесь каждый ученик — личность, а не часть системы. Мы создаем атмосферу уважения и свободы, где академические достижения идут рука об руку с творчеством, рефлексией и радостью открытия."
+            «Наш центр — это пространство знаний, диалога и самовыражения. Мы верим в образование, которое не просто дает знания, а учит думать, выбирать, осознавать себя и мир вокруг. Здесь каждый ученик — личность, а не часть системы. Мы создаем атмосферу уважения и свободы, где академические достижения идут рука об руку с творчеством, рефлексией и радостью открытия.»
           </motion.div>
 
           <motion.div
@@ -406,22 +408,12 @@ export default function Home() {
               answer: 'Мы находимся в Москве по адресу: ул. Косыгина 13, п. 3. Удобная транспортная доступность.'
             }
           ].map((faq, i) => (
-            <motion.details
+            <FAQItem
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="border-2 border-black p-6 group"
-            >
-              <summary className="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
-                {faq.question}
-                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
-              </summary>
-              <p className="mt-4 text-gray-700 leading-relaxed">
-                {faq.answer}
-              </p>
-            </motion.details>
+              question={faq.question}
+              answer={faq.answer}
+              delay={i * 0.1}
+            />
           ))}
         </div>
       </section>
@@ -477,7 +469,7 @@ export default function Home() {
                 </a>
               </motion.div>
 
-              <motion.div
+          <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -487,10 +479,10 @@ export default function Home() {
                 <div className="text-sm uppercase tracking-widest mb-4 opacity-80">Соцсети</div>
                 <Link href="https://t.me/neordinata_public" target="_blank" className="block border-2 border-white text-white text-center py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-[#3b82f6] transition-colors">
                   Telegram
-                </Link>
+              </Link>
                 <Link href="https://vk.com/neordinata" target="_blank" className="block border-2 border-white text-white text-center py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-[#3b82f6] transition-colors">
                   VK
-                </Link>
+              </Link>
               </motion.div>
             </div>
           </div>
@@ -500,9 +492,9 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t-4 border-black py-6 px-8 lg:px-16 bg-black text-white">
         <div className="text-center">
-          <a 
-            href="https://github.com/borisgraudt" 
-            target="_blank" 
+          <a
+            href="https://github.com/borisgraudt"
+            target="_blank"
             className="inline-block font-bold text-xs tracking-widest hover:blur-sm transition-all duration-300"
           >
             made by boris

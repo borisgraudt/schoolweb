@@ -70,6 +70,11 @@ export default function ContactPage() {
 
       setSubmitStatus('success');
       reset();
+      
+      // Автоматически скрыть сообщение через 5 секунд
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 5000);
     } catch (error) {
       setSubmitStatus('error');
     } finally {

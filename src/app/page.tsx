@@ -28,6 +28,7 @@ const eventPhotos = [
 ];
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
   const [currentEventPhoto, setCurrentEventPhoto] = useState(0);
   const [selectedTeacher, setSelectedTeacher] = useState(0);
   const [showSelfBio, setShowSelfBio] = useState(true);
@@ -39,6 +40,9 @@ export default function Home() {
   });
 
   useEffect(() => {
+    // Устанавливаем флаг монтирования
+    setMounted(true);
+    
     // Загрузка данных из localStorage
     const savedTeachers = localStorage.getItem('teachers');
     const savedEvents = localStorage.getItem('eventData');
@@ -150,10 +154,10 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
+              <h3 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight" suppressHydrationWarning>
                 {loadedEventData.title}
               </h3>
-              <div className="text-lg leading-relaxed text-gray-700 mb-8 whitespace-pre-line">
+              <div className="text-lg leading-relaxed text-gray-700 mb-8 whitespace-pre-line" suppressHydrationWarning>
                 {loadedEventData.description}
               </div>
 
@@ -203,15 +207,14 @@ export default function Home() {
       {/* Slide 3 - О нас */}
       <section className="py-24 px-8 lg:px-16 bg-black text-white border-t-4 border-black">
         <div className="max-w-6xl mx-auto">
-          <motion.div
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-16"
-            style={{ lineHeight: '1.6' }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-16 leading-relaxed"
           >
             «Наш центр — это пространство знаний, диалога и самовыражения. Мы верим в образование, которое не просто дает знания, а учит думать, выбирать, осознавать себя и мир вокруг. Здесь каждый ученик — личность, а не часть системы. Мы создаем атмосферу уважения и свободы, где академические достижения идут рука об руку с творчеством, рефлексией и радостью открытия.»
-          </motion.div>
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

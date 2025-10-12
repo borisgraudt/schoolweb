@@ -496,12 +496,12 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t-4 border-black py-6 px-8 lg:px-16 bg-black text-white">
         <div className="text-center space-y-2">
-          <a
-            href="https://github.com/borisgraudt"
-            target="_blank"
+          <a 
+            href="https://aethr.ru" 
+            target="_blank" 
             className="inline-block font-bold text-xs tracking-widest hover:blur-sm transition-all duration-300"
           >
-            made by boris
+            by aethr
           </a>
           <p className="text-xs text-gray-400">
             © {new Date().getFullYear()} Неордината. Все права защищены.

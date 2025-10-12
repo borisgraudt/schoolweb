@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { put, list } from "@vercel/blob";
 
-// In production, prefer a shared store (e.g., Vercel KV). As a lightweight
-// default, we will use Vercel Edge Config or KV if provided, else fallback to
-// in-memory (which only works per instance). To ensure global persistence,
-// set KV_REST_API_URL and KV_REST_API_TOKEN env vars for Vercel KV REST API.
+// Используем Vercel Blob для глобального хранения JSON c контентом
+// Требуется переменная окружения: BLOB_READ_WRITE_TOKEN (Project Settings → Tokens)
 
 type Teacher = {
   name: string;
@@ -24,47 +23,25 @@ type Payload = {
   teachers: Teacher[];
   eventData: EventData;
 };
-
-// Minimal KV REST client
-async function kvGet(key: string): Promise<any | null> {
-  const base = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
-  if (!base || !token) return null;
-  const res = await fetch(`${base}/get/${encodeURIComponent(key)}`, {
-    headers: { Authorization: `Bearer ${token}` },
-    cache: "no-store",
-  });
-  if (!res.ok) return null;
-  const data = await res.json().catch(() => null);
-  return data?.result ?? null;
-}
-
-async function kvSet(key: string, value: any): Promise<boolean> {
-  const base = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
-  if (!base || !token) return false;
-  const res = await fetch(`${base}/set/${encodeURIComponent(key)}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ value }),
-  });
-  return res.ok;
-}
-
-const DEFAULT_KEY = "schoolweb:content";
+const BLOB_NAME = "schoolweb/content.json";
 
 export async function GET() {
   try {
-    // Try KV first
-    const stored = await kvGet(DEFAULT_KEY);
-    if (stored) {
-      return NextResponse.json(stored, { status: 200 });
-    }
+    // Check if blob exists
+    try {
+      const token = process.env.BLOB_READ_WRITE_TOKEN;
+      const files = await list({ prefix: BLOB_NAME, token });
+      const found = files.blobs?.find(b => b.pathname === BLOB_NAME);
+      if (found?.url) {
+        const file = await fetch(found.url, { cache: "no-store" });
+        if (file.ok) {
+          const json = await file.json();
+          return NextResponse.json(json, { status: 200 });
+        }
+      }
+    } catch {}
 
-    // Fallback: return empty structure so UI falls back to defaults client-side
+    // Fallback: return empty structure
     const empty: Payload = {
       teachers: [],
       eventData: { title: "", description: "", photos: [] },
@@ -91,11 +68,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
     }
 
-    const ok = await kvSet(DEFAULT_KEY, body);
-    if (!ok) {
-      return NextResponse.json({ error: "KV not configured" }, { status: 500 });
+    const token = process.env.BLOB_READ_WRITE_TOKEN;
+    if (!token) {
+      return NextResponse.json({ error: "Blob token missing" }, { status: 500 });
     }
-    return NextResponse.json({ ok: true }, { status: 200 });
+
+    const res = await put(BLOB_NAME, JSON.stringify(body), {
+      access: "public",
+      contentType: "application/json",
+      token,
+    });
+    if (!res?.url) {
+      return NextResponse.json({ error: "Failed to write blob" }, { status: 500 });
+    }
+    return NextResponse.json({ ok: true, url: res.url }, { status: 200 });
   } catch (e) {
     return NextResponse.json({ error: "Failed to save content" }, { status: 500 });
   }

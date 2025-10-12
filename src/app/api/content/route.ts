@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put, list } from "@vercel/blob";
+import { put, list, del } from "@vercel/blob";
 
 // Используем Vercel Blob для глобального хранения JSON c контентом
 // Требуется переменная окружения: BLOB_READ_WRITE_TOKEN (Project Settings → Tokens)
@@ -72,6 +72,17 @@ export async function POST(req: NextRequest) {
     const token = process.env.BLOB_READ_WRITE_TOKEN;
     if (!token) {
       return NextResponse.json({ error: "Blob token missing" }, { status: 500 });
+    }
+
+    // Удаляем старый blob если есть, потом создаем новый
+    try {
+      const files = await list({ prefix: BLOB_NAME, token });
+      const found = files.blobs?.find(b => b.pathname === BLOB_NAME);
+      if (found?.url) {
+        await del(found.url, { token });
+      }
+    } catch (e) {
+      // игнорируем ошибки удаления
     }
 
     const res = await put(BLOB_NAME, JSON.stringify(body), {

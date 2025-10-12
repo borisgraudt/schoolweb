@@ -9,9 +9,16 @@
   --bauhaus-red: #e74c3c;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   @apply bg-white text-gray-900;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 /* Swiper Custom Styles */

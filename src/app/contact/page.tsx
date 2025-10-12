@@ -78,7 +78,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
+    <main className="min-h-screen bg-white overflow-x-hidden" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b-2 border-black">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex justify-between items-center">

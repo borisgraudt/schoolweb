@@ -77,7 +77,7 @@ export default function Home() {
   }, [loadedEventData.photos.length]);
 
   return (
-    <main className="min-h-screen bg-white" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
+    <main className="min-h-screen bg-white overflow-x-hidden" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
       {/* Grid overlay для Swiss design */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0">
         <div className="grid grid-cols-12 h-full">
@@ -88,8 +88,8 @@ export default function Home() {
       </div>
 
       {/* Slide 1 - Hero */}
-      <section className="min-h-screen grid grid-cols-12 gap-0 relative">
-        <div className="col-span-12 lg:col-span-7 flex items-center px-8 lg:px-16 py-20 relative">
+      <section className="min-h-screen grid grid-cols-12 gap-0 relative overflow-hidden">
+        <div className="col-span-12 lg:col-span-7 flex items-center px-6 sm:px-8 lg:px-16 py-20 relative">
           <div className="relative z-10">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -135,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* Slide 2 - Events */}
-      <section id="events" className="py-24 px-8 lg:px-16 border-t-4 border-black">
+      <section id="events" className="py-24 px-6 sm:px-8 lg:px-16 border-t-4 border-black">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 lg:col-span-4">
             <motion.h2
@@ -205,7 +205,7 @@ export default function Home() {
       </section>
 
       {/* Slide 3 - О нас */}
-      <section className="py-24 px-8 lg:px-16 bg-black text-white border-t-4 border-black">
+      <section className="py-24 px-6 sm:px-8 lg:px-16 bg-black text-white border-t-4 border-black">
         <div className="max-w-6xl mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 20 }}

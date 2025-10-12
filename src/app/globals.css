@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --bauhaus-light: #f5f5f5;
+  --bauhaus-light: #ffffff;
   --bauhaus-green: rgb(81, 106, 77);
   --bauhaus-blue: #3498db;
   --bauhaus-red: #e74c3c;
 }
 
 body {
-  @apply bg-bauhaus-light text-gray-900;
+  @apply bg-white text-gray-900;
   scroll-behavior: smooth;
 }
 

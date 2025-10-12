@@ -314,7 +314,7 @@ export default function ContactPage() {
 
       {/* Footer */}
       <footer className="border-t-4 border-black py-6 px-8 lg:px-16 bg-black text-white">
-        <div className="text-center">
+        <div className="text-center space-y-2">
           <a 
             href="https://github.com/borisgraudt" 
             target="_blank" 
@@ -322,6 +322,9 @@ export default function ContactPage() {
           >
             made by boris
           </a>
+          <p className="text-xs text-gray-400">
+            © {new Date().getFullYear()} Неордината. Все права защищены.
+          </p>
         </div>
       </footer>
     </main>

@@ -349,13 +349,19 @@ export default function Home() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={showSelfBio ? 'self' : 'director'}
-                    initial={{ opacity: 0, x: showSelfBio ? -15 : 15 }}
+                    initial={{ opacity: 0, x: showSelfBio ? -10 : 10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: showSelfBio ? 15 : -15 }}
+                    exit={{ opacity: 0, x: showSelfBio ? 10 : -10 }}
                     transition={{ 
-                      duration: 0.5, 
+                      duration: 0.6,
                       ease: [0.25, 0.1, 0.25, 1],
-                      opacity: { duration: 0.4 }
+                      opacity: { duration: 0.5 }
+                    }}
+                    style={{ 
+                      WebkitBackfaceVisibility: 'hidden',
+                      backfaceVisibility: 'hidden',
+                      WebkitTransform: 'translateZ(0)',
+                      transform: 'translateZ(0)'
                     }}
                     className="text-base sm:text-lg leading-relaxed text-gray-700 mx-6 sm:mx-0"
                   >

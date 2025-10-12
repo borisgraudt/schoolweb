@@ -121,10 +121,22 @@ export default function ContactPage() {
                   <label className="block text-sm font-bold mb-2 uppercase tracking-wider">ФИО поступающего</label>
                   <input
                     {...register('applicantName')}
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-black"
+                    className={`w-full px-4 py-3 border-2 focus:outline-none transition-colors ${
+                      errors.applicantName 
+                        ? 'border-red-600 bg-red-50' 
+                        : 'border-black focus:border-black hover:border-gray-600'
+                    }`}
                     placeholder="Иванов Иван Иванович"
                   />
-                  {errors.applicantName && <p className="text-red-600 text-sm mt-2">{errors.applicantName.message}</p>}
+                  {errors.applicantName && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-600 text-sm mt-2 font-bold"
+                    >
+                      {errors.applicantName.message}
+                    </motion.p>
+                  )}
                 </div>
 
                 <div>
@@ -134,20 +146,44 @@ export default function ContactPage() {
                     min="5"
                     max="11"
                     {...register('class', { valueAsNumber: true })}
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-black"
+                    className={`w-full px-4 py-3 border-2 focus:outline-none transition-colors ${
+                      errors.class 
+                        ? 'border-red-600 bg-red-50' 
+                        : 'border-black focus:border-black hover:border-gray-600'
+                    }`}
                     placeholder="9"
                   />
-                  {errors.class && <p className="text-red-600 text-sm mt-2">{errors.class.message}</p>}
+                  {errors.class && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-600 text-sm mt-2 font-bold"
+                    >
+                      {errors.class.message}
+                    </motion.p>
+                  )}
                 </div>
 
                 <div>
                   <label className="block text-sm font-bold mb-2 uppercase tracking-wider">ФИО родителя</label>
                   <input
                     {...register('parentName')}
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-black"
+                    className={`w-full px-4 py-3 border-2 focus:outline-none transition-colors ${
+                      errors.parentName 
+                        ? 'border-red-600 bg-red-50' 
+                        : 'border-black focus:border-black hover:border-gray-600'
+                    }`}
                     placeholder="Иванова Мария Петровна"
                   />
-                  {errors.parentName && <p className="text-red-600 text-sm mt-2">{errors.parentName.message}</p>}
+                  {errors.parentName && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-600 text-sm mt-2 font-bold"
+                    >
+                      {errors.parentName.message}
+                    </motion.p>
+                  )}
                 </div>
 
                 <div>
@@ -155,48 +191,91 @@ export default function ContactPage() {
                   <input
                     {...register('phone')}
                     onChange={handlePhoneChange}
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-black"
+                    className={`w-full px-4 py-3 border-2 focus:outline-none transition-colors ${
+                      errors.phone 
+                        ? 'border-red-600 bg-red-50' 
+                        : 'border-black focus:border-black hover:border-gray-600'
+                    }`}
                     placeholder="+7 (999) 999 99 99"
                   />
-                  {errors.phone && <p className="text-red-600 text-sm mt-2">{errors.phone.message}</p>}
+                  {errors.phone && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-600 text-sm mt-2 font-bold"
+                    >
+                      {errors.phone.message}
+                    </motion.p>
+                  )}
                 </div>
 
                 <div>
                   <label className="block text-sm font-bold mb-2 uppercase tracking-wider">Email</label>
                   <input
                     {...register('email')}
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-black"
+                    className={`w-full px-4 py-3 border-2 focus:outline-none transition-colors ${
+                      errors.email 
+                        ? 'border-red-600 bg-red-50' 
+                        : 'border-black focus:border-black hover:border-gray-600'
+                    }`}
                     placeholder="example@mail.com"
                   />
-                  {errors.email && <p className="text-red-600 text-sm mt-2">{errors.email.message}</p>}
+                  {errors.email && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-600 text-sm mt-2 font-bold"
+                    >
+                      {errors.email.message}
+                    </motion.p>
+                  )}
                 </div>
 
-                <button
+                <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 bg-black text-white font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  className="w-full py-4 bg-black text-white font-bold uppercase tracking-widest hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
                 >
-                  {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
-                </button>
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center gap-3">
+                      <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                      Отправка...
+                    </span>
+                  ) : (
+                    'Отправить заявку'
+                  )}
+                </motion.button>
 
                 {submitStatus === 'success' && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-green-600 text-center font-bold"
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    className="border-4 border-green-600 bg-green-50 p-6 text-center"
                   >
-                    ✓ Заявка успешно отправлена!
-                  </motion.p>
+                    <p className="text-green-600 font-bold text-xl uppercase tracking-widest">
+                      ✓ Заявка успешно отправлена!
+                    </p>
+                    <p className="text-green-700 text-sm mt-2">
+                      Мы свяжемся с вами в ближайшее время
+                    </p>
+                  </motion.div>
                 )}
 
                 {submitStatus === 'error' && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-red-600 text-center font-bold"
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    className="border-4 border-red-600 bg-red-50 p-6 text-center"
                   >
-                    ✗ Ошибка отправки. Попробуйте снова.
-                  </motion.p>
+                    <p className="text-red-600 font-bold text-xl uppercase tracking-widest">
+                      ✗ Ошибка отправки
+                    </p>
+                    <p className="text-red-700 text-sm mt-2">
+                      Попробуйте снова или напишите нам напрямую
+                    </p>
+                  </motion.div>
                 )}
               </form>
             </div>

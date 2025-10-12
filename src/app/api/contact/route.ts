@@ -35,9 +35,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { applicantName, class: classNumber, parentName, email, phone, source } = result.data;
+    const { applicantName, class: classNumber, parentName, email, phone } = result.data;
 
     const status = 'на рассмотрении'; // Автоматическое значение для этапа поступления
+    const timestamp = new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' });
 
     // Получаем клиент Google Sheets
     const sheets = getGoogleSheetsClient();
@@ -45,10 +46,10 @@ export async function POST(req: NextRequest) {
     // Добавление данных в Google Sheets
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'Sheet1!A:G', // Расширен диапазон до столбца G
+      range: 'Sheet1!A:G', // Диапазон до столбца G
       valueInputOption: 'USER_ENTERED',
       requestBody: {
-        values: [[applicantName, classNumber, parentName, email, `'${phone}`, source, status]],
+        values: [[applicantName, classNumber, parentName, email, `'${phone}`, timestamp, status]],
       },
     } as sheets_v4.Params$Resource$Spreadsheets$Values$Append);
 

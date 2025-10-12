@@ -7,7 +7,6 @@ export const contactSchema = z.object({
   email: z.string().email("Введите корректный email"),
   phone: z.string()
     .regex(/^\+7 \(\d{3}\) \d{3} \d{2} \d{2}$/, "Телефон должен быть в формате +7 (XXX) XXX XX XX"),
-  source: z.string().min(2, "Источник должен содержать не менее 2 символов"),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>; 

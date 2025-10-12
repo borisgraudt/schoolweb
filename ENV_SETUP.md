@@ -44,7 +44,7 @@ GOOGLE_SHEET_ID=your-google-sheet-id
 - C: ФИО родителя
 - D: Email
 - E: Телефон
-- F: Источник
+- F: Дата и время
 - G: Статус
 
 ## Примечание

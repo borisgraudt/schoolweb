@@ -70,11 +70,6 @@ export default function ContactPage() {
 
       setSubmitStatus('success');
       reset();
-      
-      // Автоматически скрыть сообщение через 5 секунд
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 5000);
     } catch (error) {
       setSubmitStatus('error');
     } finally {
@@ -119,9 +114,52 @@ export default function ContactPage() {
           </div>
 
           <div className="border-t-4 border-black pt-12">
-            {/* Форма */}
-            <div className="max-w-2xl mx-auto">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {submitStatus === 'success' ? (
+              /* Success Screen */
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="max-w-3xl mx-auto text-center py-20"
+              >
+                <div className="mb-12">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                    className="text-9xl mb-8"
+                  >
+                    ✓
+                  </motion.div>
+                  <h2 className="text-5xl sm:text-6xl font-bold mb-6 uppercase tracking-tight">
+                    Заявка отправлена!
+                  </h2>
+                  <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-xl mx-auto">
+                    Спасибо за ваш интерес к нашей школе. Мы свяжемся с вами в ближайшее время.
+                  </p>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    href="/"
+                    className="px-8 py-4 bg-black text-white uppercase tracking-widest hover:bg-gray-800 transition-colors"
+                  >
+                    На главную
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setSubmitStatus('idle');
+                      reset();
+                    }}
+                    className="px-8 py-4 border-2 border-black uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
+                  >
+                    Новая заявка
+                  </button>
+                </div>
+              </motion.div>
+            ) : (
+              /* Форма */
+              <div className="max-w-2xl mx-auto">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
                   <label className="block text-sm font-bold mb-2 uppercase tracking-wider">ФИО поступающего</label>
                   <input
@@ -253,21 +291,6 @@ export default function ContactPage() {
                   )}
                 </motion.button>
 
-                {submitStatus === 'success' && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: -10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    className="border-4 border-green-600 bg-green-50 p-6 text-center"
-                  >
-                    <p className="text-green-600 font-bold text-xl uppercase tracking-widest">
-                      ✓ Заявка успешно отправлена!
-                    </p>
-                    <p className="text-green-700 text-sm mt-2">
-                      Мы свяжемся с вами в ближайшее время
-                    </p>
-                  </motion.div>
-                )}
-
                 {submitStatus === 'error' && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9, y: -10 }}
@@ -283,7 +306,8 @@ export default function ContactPage() {
                   </motion.div>
                 )}
               </form>
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

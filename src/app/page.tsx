@@ -349,18 +349,9 @@ export default function Home() {
                 </div>
 
                 {/* Текст */}
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={showSelfBio ? 'self' : 'director'}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="text-base sm:text-lg leading-relaxed text-gray-700 mx-6 sm:mx-0"
-                  >
-                    {showSelfBio ? loadedTeachers[selectedTeacher].selfBio : loadedTeachers[selectedTeacher].directorBio}
-                  </motion.p>
-                </AnimatePresence>
+                <div className="text-base sm:text-lg leading-relaxed text-gray-700 mx-6 sm:mx-0 transition-opacity duration-300">
+                  {showSelfBio ? loadedTeachers[selectedTeacher].selfBio : loadedTeachers[selectedTeacher].directorBio}
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

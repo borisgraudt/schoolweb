@@ -108,7 +108,7 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-7xl sm:text-8xl lg:text-9xl font-bold mb-8 tracking-tight leading-none">
-                НЕОР­<br/>ДИНА­<br/>ТА
+                НЕ­<br/>ОРДИ­<br/>НАТА
               </h1>
             </motion.div>
             
@@ -118,7 +118,10 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg mb-12 max-w-md leading-relaxed"
             >
-              Место, где знания встречаются со свободой, а обучение становится осознанным выбором. Мы вдохновляем думать, открывать новое и быть собой. Здесь каждый — больше, чем просто ученик.
+              Место, где знания встречаются со свободой,<br/>
+              а обучение становится осознанным выбором.<br/>
+              Мы вдохновляем думать, открывать новое и быть собой.<br/>
+              Здесь каждый — больше, чем просто ученик.
             </motion.p>
 
             <motion.div
@@ -155,7 +158,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-sm uppercase tracking-widest mb-4"
             >
-              Events
+              События
             </motion.h2>
           </div>
 

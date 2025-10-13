@@ -98,7 +98,7 @@ export default function ContactPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-sm uppercase tracking-widest"
               >
-                Contact
+                Контакты
               </motion.h2>
             </div>
             <div className="col-span-12 lg:col-span-8">

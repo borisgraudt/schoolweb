@@ -166,7 +166,7 @@ When suggesting features:
 
 For questions about the project:
 - Open an issue on GitHub
-- Email: neordinata@ya.ru
+- Email: boris.graudt@gmail.com
 
 ## 📄 License
 

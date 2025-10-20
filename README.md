@@ -97,6 +97,8 @@
 
 ### DevOps & Security
 - **GitHub Actions** — CI/CD pipeline
+- **Vitest** — Unit testing framework
+- **React Testing Library** — Component testing
 - **ESLint + Prettier** — Code quality
 - **HTTPS + HSTS** — Secure communication
 - **CSP Headers** — XSS protection
@@ -128,6 +130,15 @@ cp .env.example .env.local
 
 # Run development server
 npm run dev
+
+# Run tests
+npm test
+
+# Run linter
+npm run lint
+
+# Build for production
+npm run build
 ```
 
 Visit [http://localhost:3000](http://localhost:3000)
@@ -316,9 +327,13 @@ npm run build
 
 ### Short-term
 - [ ] PWA support (offline access)
-- [ ] Vercel Analytics integration
+- [x] Vercel Analytics integration
 - [ ] Image optimization (Next.js Image)
-- [ ] Unit tests (Vitest)
+- [x] Unit tests (Vitest)
+- [x] Error boundaries
+- [x] Loading states
+- [x] SEO (sitemap, robots.txt)
+- [x] Open Graph images
 - [ ] E2E tests (Playwright)
 
 ### Long-term

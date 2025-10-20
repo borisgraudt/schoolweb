@@ -24,7 +24,7 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
 }));
 
 // Mock window.scrollTo
-global.scrollTo = vi.fn();
+global.scrollTo = vi.fn() as any;
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {

@@ -11,7 +11,7 @@ const teachers = [
     name: 'Мария Алексеевна', 
     subject: 'Биология', 
     selfBio: 'Биология — это не только не страшно, но ещё и жутко интересно и полезно. Спонтанно мы занимаемся её изучением и применением в жизни буквально каждый день, а мне хочется сделать её немного более понятной и близкой. Бешеной собаке семь вёрст не крюк: занимаюсь помощью диким животным, играю в ролевые игры живого действия, организую лекции и мастер-классы, работаю параллельно в зоологическом музее родной alma mater.',
-    directorBio: 'Мария Алексеевна - биолог. И поэтому в школе можно подержать на ладошке летучую мышь, ловить сбежавшего ежа...А еще можно раскрыв рот слушать ее уроки. От 5 до 11 класса слушать Марию Алексеевну любят все. И ей есть что рассказать. Ведь она волонтер, помогающий диким животным, сотрудник музея. А еще - веселый, спокойный и легкий на подъем человек.',
+    directorBio: 'Мария Алексеевна - биолог. И поэтому в нашем центре можно подержать на ладошке летучую мышь, ловить сбежавшего ежа...А еще можно раскрыв рот слушать ее уроки. От 5 до 11 класса слушать Марию Алексеевну любят все. И ей есть что рассказать. Ведь она волонтер, помогающий диким животным, сотрудник музея. А еще - веселый, спокойный и легкий на подъем человек.',
     color: '#10b981', 
     image: '/images/maria.png' 
   },
@@ -279,7 +279,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-4xl sm:text-5xl font-bold"
             >
-              Наши учителя
+              Наша команда
             </motion.h3>
           </div>
         </div>
@@ -419,19 +419,19 @@ export default function Home() {
         <div className="max-w-4xl mx-auto space-y-4">
           {[
             {
-              question: 'Как записаться в школу?',
+              question: 'Как записаться в центр?',
               answer: 'Свяжитесь с нами по телефону +7 985 875-75-92 или email neordinata@ya.ru, и мы расскажем о всех этапах поступления.'
             },
             {
-              question: 'Какие классы есть в школе?',
-              answer: 'В нашей школе обучаются ученики с 5 по 11 класс. Мы предлагаем индивидуальный подход к каждому ребенку.'
+              question: 'Какие классы есть в центре?',
+              answer: 'В нашем центре обучаются ученики с 5 по 11 класс. Мы предлагаем индивидуальный подход к каждому ребенку.'
             },
             {
               question: 'Проводятся ли дополнительные занятия?',
               answer: 'Да, мы организуем проектную деятельность, мастер-классы, лекции и другие образовательные мероприятия.'
             },
             {
-              question: 'Где находится школа?',
+              question: 'Где находится центр?',
               answer: 'Мы находимся в Москве по адресу: ул. Косыгина 13, п. 3. Удобная транспортная доступность.'
             }
           ].map((faq, i) => (
@@ -518,17 +518,24 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t-4 border-black py-6 px-8 lg:px-16 bg-black text-white">
-        <div className="text-center space-y-2">
-          <a
-            href="https://github.com/borisgraudt"
-            target="_blank"
-            className="inline-block font-bold text-xs tracking-widest hover:blur-sm transition-all duration-300"
-          >
-            by aethr
-          </a>
-          <p className="text-xs text-gray-400">
-            © {new Date().getFullYear()} Неордината. Все права защищены.
-          </p>
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left">
+            <div className="space-y-2">
+              <p className="text-xs text-gray-400">
+                © {new Date().getFullYear()} Досугово-развивающий центр "Школа Неордината". Все права защищены.
+              </p>
+              <a href="/privacy" className="text-xs text-gray-500 hover:text-white transition-colors">
+                Политика конфиденциальности
+              </a>
+            </div>
+            <a
+              href="https://github.com/borisgraudt"
+              target="_blank"
+              className="inline-block font-bold text-xs tracking-widest hover:blur-sm transition-all duration-300"
+            >
+              by aethr
+            </a>
+          </div>
         </div>
       </footer>
 

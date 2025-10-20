@@ -134,7 +134,7 @@ export default function ContactPage() {
                     Заявка отправлена!
                   </h2>
                   <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-xl mx-auto">
-                    Спасибо за ваш интерес к нашей школе. Мы свяжемся с вами в ближайшее время.
+                    Спасибо за ваш интерес к нашему центру. Мы свяжемся с вами в ближайшее время.
                   </p>
                 </div>
                 
@@ -272,6 +272,23 @@ export default function ContactPage() {
                       {errors.email.message}
                     </motion.p>
                   )}
+                </div>
+
+                {/* Согласие на обработку ПД */}
+                <div className="border-2 border-black p-4">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      className="mt-1 w-5 h-5 border-2 border-black"
+                    />
+                    <span className="text-sm leading-relaxed">
+                      Согласен на обработку персональных данных в соответствии с{' '}
+                      <Link href="/privacy" className="underline hover:no-underline font-bold">
+                        Политикой конфиденциальности
+                      </Link>
+                    </span>
+                  </label>
                 </div>
 
                 <motion.button

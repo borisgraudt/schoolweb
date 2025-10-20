@@ -40,17 +40,20 @@ body {
   border-radius: 5px !important;
 }
 
-/* Плавные переходы для Safari и всех браузеров */
-* {
-  -webkit-transition-property: background-color, border-color, color, fill, stroke, opacity, transform;
-  transition-property: background-color, border-color, color, fill, stroke, opacity, transform;
-  -webkit-transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-  -webkit-transition-duration: 400ms;
-  transition-duration: 400ms;
-  will-change: transform, opacity;
+/* Плавные переходы только для интерактивных элементов */
+a, button, input, select, textarea {
+  -webkit-transition-property: background-color, border-color, color, opacity, transform;
+  transition-property: background-color, border-color, color, opacity, transform;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  -webkit-transition-duration: 200ms;
+  transition-duration: 200ms;
+}
+
+/* Оптимизация для анимированных элементов */
+[class*="motion-"] {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-perspective: 1000px;
-  perspective: 1000px;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }

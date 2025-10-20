@@ -8,7 +8,6 @@ interface TypewriterProps {
 }
 
 export default function Typewriter({ text, speed = 18, pauseAfterDot = 400, className = '' }: TypewriterProps) {
-  if (!Array.isArray(text) || text.length === 0) return null;
   const [displayed, setDisplayed] = useState<string[]>(text.map(() => ''));
 
   useEffect(() => {
@@ -44,6 +43,8 @@ export default function Typewriter({ text, speed = 18, pauseAfterDot = 400, clas
     setTimeout(typeNext, speed);
     return () => { isCancelled = true; };
   }, [text, speed, pauseAfterDot]);
+
+  if (!Array.isArray(text) || text.length === 0) return null;
 
   return (
     <div className={className} style={{ whiteSpace: 'pre-line' }}>

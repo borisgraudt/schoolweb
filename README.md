@@ -31,19 +31,19 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        Cloudflare CDN                        │
-│              (DDoS Protection, Edge Caching, SSL)            │
+│                        Cloudflare CDN                       │
+│              (DDoS Protection, Edge Caching, SSL)           │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                      Vercel Platform                         │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │  Next.js 14 App (SSR + Static Generation)          │   │
-│  │  • Server Components for performance                │   │
-│  │  • Client Components for interactivity             │   │
-│  │  • API Routes for backend logic                    │   │
-│  └─────────────────────────────────────────────────────┘   │
+│                      Vercel Platform                        │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  Next.js 14 App (SSR + Static Generation)           │    │
+│  │  • Server Components for performance                │    │
+│  │  • Client Components for interactivity              │    │
+│  │  • API Routes for backend logic                     │    │
+│  └─────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────┘
            │                    │                    │
            ▼                    ▼                    ▼
@@ -378,7 +378,7 @@ This is a production project for a real organization. For suggestions or bug rep
 
 For technical inquiries about this project:
 - **GitHub:** [@borisgraudt](https://github.com/borisgraudt)
-- **Email:** neordinata@ya.ru
+- **Email:** boris.graudt@gmail.com
 
 For questions about the educational center:
 - **Website:** [aethr.ru](https://aethr.ru)

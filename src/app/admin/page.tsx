@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Teacher {
   id: string;
@@ -365,10 +366,13 @@ useEffect(() => {
                       />
                       {teacher.image && (
                         <div className="mt-2">
-                          <img 
+                          <Image 
                             src={teacher.image} 
                             alt={teacher.name}
+                            width={80}
+                            height={80}
                             className="w-20 h-20 object-cover border-2 border-black"
+                            sizes="80px"
                           />
                         </div>
                       )}
@@ -446,10 +450,13 @@ useEffect(() => {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {eventData.photos.map((photo, i) => (
                     <div key={i} className="relative group">
-                      <img 
+                      <Image 
                         src={photo} 
                         alt={`Event ${i + 1}`}
+                        width={300}
+                        height={128}
                         className="w-full h-32 object-cover border-2 border-black"
+                        sizes="(max-width: 768px) 100vw, 300px"
                       />
                       <button
                         onClick={() => deleteEventPhoto(i)}

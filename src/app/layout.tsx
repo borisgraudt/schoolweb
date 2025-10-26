@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/react";
+import CookieConsent from '@/components/CookieConsent';
+import ConditionalAnalytics from '@/components/ConditionalAnalytics';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -29,9 +30,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
+      <head>
+        <link rel="preload" href="/images/event1.jpg" as="image" />
+        <link rel="preload" href="/images/maria.png" as="image" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            .font-body { font-family: Helvetica, Arial, sans-serif; }
+            .min-h-screen { min-height: 100vh; }
+            .bg-white { background-color: #ffffff; }
+            .flex { display: flex; }
+            .items-center { align-items: center; }
+            .justify-center { justify-content: center; }
+            .text-center { text-align: center; }
+            .animate-spin { animation: spin 1s linear infinite; }
+            @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+          `
+        }} />
+      </head>
       <body className="font-body">
         {children}
-        <Analytics />
+        <ConditionalAnalytics />
+        <CookieConsent />
       </body>
     </html>
   );

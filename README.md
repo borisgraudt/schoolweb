@@ -3,9 +3,11 @@
 > **A production-grade, full-stack web platform for a leisure and development center in Moscow. Built with modern technologies and engineering best practices.**
 
 [![Live Site](https://img.shields.io/badge/Live-aethr.ru-black?style=flat-square)](https://aethr.ru)
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![Build Status](https://github.com/borisgraudt/schoolweb/workflows/CI/CD/badge.svg)](https://github.com/borisgraudt/schoolweb/actions)
+[![Lighthouse Performance](https://img.shields.io/badge/lighthouse-95+-green?style=flat-square)](https://aethr.ru)
+[![Test Coverage](https://img.shields.io/badge/coverage-7.22%25-yellow?style=flat-square)](https://github.com/borisgraudt/schoolweb)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-green?style=flat-square&logo=github-actions)](https://github.com/features/actions)
 [![Security](https://img.shields.io/badge/Security-HTTPS%20%7C%20CSP%20%7C%20HSTS-success?style=flat-square&logo=let's-encrypt)](https://aethr.ru)
 
 ---

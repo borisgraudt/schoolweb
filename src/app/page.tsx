@@ -2,9 +2,12 @@
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import Image from 'next/image';
 import FAQItem from '@/components/FAQItem';
+
+// Lazy load heavy components
+const TeachersCarousel = lazy(() => import('@/components/TeachersCarousel'));
 
 const teachers = [
   { 
@@ -187,10 +190,15 @@ export default function Home() {
                     className="absolute inset-0"
                   >
                     {loadedEventData.photos[currentEventPhoto] ? (
-                      <img 
+                      <Image 
                         src={loadedEventData.photos[currentEventPhoto]} 
                         alt={`Event ${currentEventPhoto + 1}`}
+                        width={800}
+                        height={400}
                         className="w-full h-full object-cover"
+                        priority={currentEventPhoto === 0}
+                        loading={currentEventPhoto === 0 ? "eager" : "lazy"}
+                        sizes="(max-width: 768px) 100vw, 800px"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-6xl text-gray-400">
@@ -332,10 +340,13 @@ export default function Home() {
                   style={{ backgroundColor: loadedTeachers[selectedTeacher].color }}
                 >
                   {loadedTeachers[selectedTeacher].image ? (
-                    <img 
+                    <Image 
                       src={loadedTeachers[selectedTeacher].image} 
                       alt={loadedTeachers[selectedTeacher].name}
+                      width={300}
+                      height={300}
                       className="w-full h-full object-cover"
+                      sizes="(max-width: 768px) 100vw, 300px"
                     />
                   ) : (
                     <span>👤</span>

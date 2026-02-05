@@ -116,5 +116,5 @@ src/
 - [ ] Оптимизировать шрифты
 - [ ] Добавить Progressive Web App (PWA) функционал
 - [ ] Добавить темную тему
-- [ ] Интеграция с Google Analytics
+- [ ] Интеграция с Google Analytics 
 
